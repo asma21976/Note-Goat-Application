@@ -5,16 +5,24 @@ from django.views.generic import (
 from django.urls import reverse_lazy
 
 from .models import (
-    Note,
+    Note, Folder
 )
 
 # Create your views here.
 
 from django.views.generic import TemplateView
 
+from website import models
 
-class HomePageView(TemplateView):
-    template_name = 'home.html'
+
+class HomePageView(CreateView):
+    template_name = 'homepage.html'
+    model = Folder
+    fields = ('folder_name',)
+    context_object_name = 'folders'
+    # queryset = Folder.objects.all()
+    success_url = reverse_lazy('home')
+
 
 
 class CreateNoteView(CreateView):
