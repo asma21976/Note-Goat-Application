@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     #local
     'website',
+    'accounts',
 
     #3rd party
     'phonenumber_field',
@@ -47,7 +48,9 @@ INSTALLED_APPS = [
 ]
 
 CRISPY_TEMPLATE_PACK = 'uni_form'
-AUTH_USER_MODEL = 'website.CustomUser'
+AUTH_USER_MODEL = 'accounts.CustomUser'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

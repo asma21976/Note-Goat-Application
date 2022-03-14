@@ -8,7 +8,6 @@ from django.urls import reverse_lazy
 from .models import (
     Note,
 )
-from .forms import CustomUserCreationForm
 
 # Create your views here.
 
@@ -25,9 +24,3 @@ class CreateNoteView(CreateView):
     fields = ('file_name', 'text', 'public')
     context_object_name = 'note'
     success_url = reverse_lazy('home')
-
-
-class SignupPageView(generic.CreateView):
-    form_class = CustomUserCreationForm
-    success_url = reverse_lazy('home')
-    template_name = 'registration/signup.html'
