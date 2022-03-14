@@ -22,6 +22,7 @@ class Note(models.Model):
     text = models.TextField(blank=True)
     public = models.BooleanField(default=False)
     creator = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    folder = models.ForeignKey(Folder, on_delete=models.CASCADE, null=True)
 
     sharing = models.ManyToManyField(get_user_model(), related_name='shared_notes', through='SharedWith')
 
