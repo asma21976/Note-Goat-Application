@@ -24,3 +24,18 @@ class CreateNoteView(CreateView):
     fields = ('file_name', 'text', 'public')
     context_object_name = 'note'
     success_url = reverse_lazy('home')
+
+
+class ListNotesView(ListView):
+    template_name = 'list_note.html'
+    model = Note
+    fields = ('file_name',)
+    context_object_name = 'notes'
+
+
+class NoteDeleteView(DeleteView):
+    template_name = 'delete_note.html'
+    model = Note
+    fields = ('file_name',)
+    success_url = reverse_lazy('list_notes')
+    context_object_name = 'notes'

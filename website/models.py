@@ -5,7 +5,6 @@ from django.utils import timezone
 
 from phonenumber_field.modelfields import PhoneNumberField
 import uuid
-import datetime
 
 
 class Folder(models.Model):
@@ -22,20 +21,21 @@ class Note(models.Model):
     file_name = models.CharField(max_length=50, default="New Note",)
     text = models.TextField(blank=True)
     public = models.BooleanField(default=False)
+    creator = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+
+    sharing = models.ManyToManyField(get_user_model(), related_name='shared_notes', through='SharedWith')
 
     def __str__(self):
         return self.file_name
 
 
-class Address(models.Model):
-    # this a superclass to be subclassed by any model with an address
-    # but is not a relation itself
-    class Meta:
-        abstract = True
+class SharedWith(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
-    address_line_1 = models.CharField(max_length=40, blank=True)
-    address_line_2 = models.CharField(max_length=40, blank=True)
-    city = models.CharField(max_length=40, blank=True)
-    province_state = models.CharField('Province/State', max_length=40, blank=True)
-    postal_code = models.CharField(max_length=40, blank=True)
-    country = models.CharField(max_length=40, blank=True)
+    class Meta:
+        unique_together = (('person', 'note'),)
+
+    person = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    note = models.ForeignKey(Note, on_delete=models.CASCADE)
+    editor = models.BooleanField(default=False)
+
