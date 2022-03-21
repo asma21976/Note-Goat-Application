@@ -1,0 +1,12 @@
+{% extends 'navbar.html' %}
+{% block title %}Update Folder{% endblock title %}
+{% block page_content %}
+<body>
+    <h1>.</h1>
+    <h1>Update Folder</h1>
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Update">
+    </form>
+</body>
+{% endblock page_content %}

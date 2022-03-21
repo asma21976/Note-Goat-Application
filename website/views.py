@@ -1,3 +1,5 @@
+from ast import For
+from urllib import request
 from django.shortcuts import render
 from django.views import generic
 from django.views.generic import (
@@ -6,16 +8,50 @@ from django.views.generic import (
 from django.urls import reverse_lazy
 
 from .models import (
-    Note,
+    Note, Folder
 )
 
 # Create your views here.
+from django.http import HttpResponse
+from django.views.generic import TemplateView, DetailView, ListView, FormView, View
+from django.views.generic.edit import FormMixin
+from django.template import loader
+from website import models
 
-from django.views.generic import TemplateView
+
+class HomePageView(View):
+    def get(self, request, *args, **kwargs):
+        notes = []
+        print("start Args")
+        print(args)
+        print("end Args")
+        if args:
+            notes = Note.objects.filter(folder=args[0])
+            print("Here")
+        else:
+            notes = Note.objects.filter(folder='d435ab9e-086d-4d1b-89d8-0843a8377a47')
+        folders = Folder.objects.all()
+        template = loader.get_template('homepage.html')
+        print(notes)
+        context = {
+            'folders': folders,
+            'notes': notes
+        }
+        return HttpResponse(template.render(context, request))
+
+    def post(self, request, *args, **kwargs):
+        print(request.POST['id'])
+        print(kwargs)
+        return self.get(request, request.POST['id'], **kwargs)
+
+    
 
 
-class HomePageView(TemplateView):
-    template_name = 'home.html'
+class UpdateFolderView(UpdateView):
+    template_name = 'update_folder.html'
+    model = Folder
+    fields = ['folder_name']
+    template_name_suffix = '_update_folder_form'
 
 
 class CreateNoteView(CreateView):
