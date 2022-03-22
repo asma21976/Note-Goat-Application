@@ -20,6 +20,9 @@ from django.views.generic.edit import FormMixin
 from django.template import loader
 from website import models
 
+class WelcomeView(TemplateView):
+    template_name = 'welcome.html'
+
 
 class HomePageView(View):
     def get(self, request, *args, **kwargs):
