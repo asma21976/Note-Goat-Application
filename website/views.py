@@ -84,11 +84,17 @@ class CreateFolderView(CreateView):
     fields = ('folder_name',)
     success_url = reverse_lazy('home')
 
+    def form_valid(self, form):
+        form.instance.creator = self.request.user
+        return super().form_valid(form)
+
 class UpdateFolderView(UpdateView):
     template_name = 'update_folder.html'
     model = Folder
     fields = ['folder_name']
-    template_name_suffix = '_update_folder_form'
+    #template_name_suffix = '_update_folder_form'
+    success_url = reverse_lazy('home')
+    context_object_name = 'folder'
 
 class FolderDeleteView(DeleteView):
     template_name = 'delete_folder.html'

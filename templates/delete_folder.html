@@ -5,6 +5,6 @@
     <form action="" method="post">{% csrf_token %}
         <p>Are you sure you want to delete "{{ folder.folder_name }}"?</p>
         <button class="btn btn-danger ml-2" type="submit">Confirm</button>
-        <a href="{% url 'list_notes' %}" class="btn btn-primary">Return</a>
+        <a href="{% url 'home' %}" class="btn btn-primary">Return</a>
     </form>
 {% endblock page_content %}

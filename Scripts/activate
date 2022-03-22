@@ -44,7 +44,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV='C:\Users\zainj\Desktop\SENG 401 fr\Note-Goat-Application-Frontend-'
+VIRTUAL_ENV='C:\Users\zainj\Desktop\SENG 401 fr fr\Note-Goat-Application-Frontend-'
 if ([ "$OSTYPE" = "cygwin" ] || [ "$OSTYPE" = "msys" ]) && $(command -v cygpath &> /dev/null) ; then
     VIRTUAL_ENV=$(cygpath -u "$VIRTUAL_ENV")
 fi
