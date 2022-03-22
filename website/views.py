@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.views import generic
 from django.views.generic import (
-    TemplateView, CreateView, ListView, UpdateView, DeleteView,
+    TemplateView, CreateView, ListView, UpdateView, DeleteView, DetailView
 )
 from django.urls import reverse_lazy
+from .forms import NoteModelForm
 
 from .models import (
     Note,
@@ -20,10 +21,8 @@ class HomePageView(TemplateView):
 
 class CreateNoteView(CreateView):
     template_name = 'create_note.html'
-    model = Note
-    fields = ('file_name', 'text', 'public')
-    context_object_name = 'note'
-    success_url = reverse_lazy('home')
+    form_class = NoteModelForm
+    queryset = Note.objects.all()
 
 
 class ListNotesView(ListView):
@@ -31,6 +30,18 @@ class ListNotesView(ListView):
     model = Note
     fields = ('file_name',)
     context_object_name = 'notes'
+
+# class NoteDetailView(DetailView):
+#     template_name = 'note_detail.html'
+
+#     def get_object(self):
+#         id_ = self.kwargs.get("id")
+#         return get_object_or_404(Note, id=id_)
+
+class NoteUpdateView(UpdateView):
+    template_name = 'create_note.html' #temp.
+    form_class = NoteModelForm
+    queryset = Note.objects.all()
 
 
 class NoteDeleteView(DeleteView):

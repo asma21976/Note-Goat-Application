@@ -1,20 +1,16 @@
 {% extends 'navbar.html' %}
 {% block page_content %}
 <h1>.</h1>
-<h1>Notes</h1>
-{% for note in notes %}
+<h1>{{note.file_name}}</h1>
+
 <br>
   <div class="card">
-    <div class="card-header">
-      <span class="text-muted">{{ note.file_name }}</span>
-    </div>
     <div class="card-header">
       <span class="text-muted">{{ note.text }}</span>
     </div>
     <div class="card-footer text-center text-muted">
-      <a href="{% url 'note_delete' note.pk %}">Delete</a>
+      <!-- <a href="{% url 'note_delete' note.pk %}">Delete</a> -->
     </div>
   </div>
 </br>
-{% endfor %}
 {% endblock page_content %}
