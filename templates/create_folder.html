@@ -1,0 +1,14 @@
+{% extends 'navbar.html' %}
+{% block title %}Create Folder{% endblock title %}
+{% block page_content %}
+<body>
+    <h1>.</h1>
+    <h1>Create a Folder!</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn btn-success" type="submit">Create</button>
+      <a href="{% url 'home' %}" class="btn btn-primary">Return</a>
+    </form>
+</body>
+{% endblock page_content %}

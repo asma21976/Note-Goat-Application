@@ -46,28 +46,22 @@ class HomePageView(View):
         print(kwargs)
         return self.get(request, request.POST['id'], **kwargs)
 
-class UpdateFolderView(UpdateView):
-    template_name = 'update_folder.html'
-    model = Folder
-    fields = ['folder_name']
-    template_name_suffix = '_update_folder_form'
+class ListNotesView(ListView):
+    template_name = 'list_note.html'
+    model = Note
+    fields = ('file_name',)
+    context_object_name = 'notes'
 
 class CreateNoteView(CreateView):
     template_name = 'create_note.html'
     model = Note
-    fields = ('file_name', 'text', 'public')
+    fields = ('file_name', 'text', 'folder','public')
     context_object_name = 'note'
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
         form.instance.creator = self.request.user
         return super().form_valid(form)
-
-class ListNotesView(ListView):
-    template_name = 'list_note.html'
-    model = Note
-    fields = ('file_name',)
-    context_object_name = 'notes'
 
 class NoteUpdateView(UpdateView):
     template_name = 'create_note.html' #temp.
@@ -84,3 +78,21 @@ class NoteDeleteView(DeleteView):
     success_url = reverse_lazy('list_notes')
     context_object_name = 'notes'
 
+class CreateFolderView(CreateView):
+    template_name = 'create_folder.html'
+    model = Folder
+    fields = ('folder_name',)
+    success_url = reverse_lazy('home')
+
+class UpdateFolderView(UpdateView):
+    template_name = 'update_folder.html'
+    model = Folder
+    fields = ['folder_name']
+    template_name_suffix = '_update_folder_form'
+
+class FolderDeleteView(DeleteView):
+    template_name = 'delete_folder.html'
+    model = Folder
+    fields = ('folder_name',)
+    success_url = reverse_lazy('home')
+    context_object_name = 'folder'

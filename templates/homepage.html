@@ -54,6 +54,8 @@
                     <form class="folders d-flex w-100 h-100" style=" column-gap: 15%; overflow-y: scroll; overflow-x: hidden; flex-wrap: wrap;">
                         {% csrf_token %}
                         {% for folder in folders %}
+                            <div class="card" style="width: 18rem;">
+
                                 <button id="{{ folder.id }}"class="btn d-flex flex-column justify-content-center text-align-center m-1" style="row-gap: 8%; height: 30%; flex-basis: 15%;" value="{{ folder }}"> 
                                     <i class="fa fa-folder fa-2x  h-50">
 
@@ -61,7 +63,10 @@
                                         <h4 class=" h-50">{{folder}}</h4>
                                     
                                 </button>
-                                <a href="folder/{{ folder.id }}/update">Update</a>
+
+                                <a href="folder/{{ folder.id }}/update" class="btn btn-primary">Update</a>
+                                        <a href="folder/{{ folder.id }}/delete" class="btn btn-danger">Delete</a>
+                                <!--- <a href="folder/{{ folder.id }}/update" class="btn btn-primary">Update</a> --->
                                 <script>
                                     $(" #{{ folder.id }}").click(function(e) {
                                         e.preventDefault();
@@ -83,6 +88,9 @@
 
                                     
                                 </script>
+
+
+                            </div>
                         {% endfor %}
                     </form>
                     {% endblock messages %}
