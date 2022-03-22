@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+
+from .models import Folder, Note, SharedWith
+
+admin.site.register(Folder)
+admin.site.register(Note)
+admin.site.register(SharedWith)

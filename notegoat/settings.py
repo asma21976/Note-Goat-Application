@@ -37,8 +37,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #local
     'website',
+    'accounts',
+
+    #3rd party
+    'phonenumber_field',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'uni_form'
+AUTH_USER_MODEL = 'accounts.CustomUser'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
