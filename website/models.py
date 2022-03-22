@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
+from django.urls import reverse
 
 from phonenumber_field.modelfields import PhoneNumberField
 import uuid
