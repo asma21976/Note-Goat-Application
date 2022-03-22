@@ -42,6 +42,9 @@ class NoteUpdateView(UpdateView):
     template_name = 'create_note.html' #temp.
     form_class = NoteModelForm
     queryset = Note.objects.all()
+    model = Note
+    success_url = reverse_lazy('list_notes')
+    context_object_name = 'notes'
 
 
 class NoteDeleteView(DeleteView):

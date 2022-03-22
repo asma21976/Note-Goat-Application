@@ -7,7 +7,7 @@
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
-      <button class="btn btn-success" type="submit">Create</button>
+      <button class="btn btn-success" type="submit">Submit</button>
       <a href="{% url 'home' %}" class="btn btn-primary">Return</a>
     </form>
 </body>

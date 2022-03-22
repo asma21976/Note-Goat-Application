@@ -12,6 +12,7 @@
       <span class="text-muted">{{ note.text }}</span>
     </div>
     <div class="card-footer text-center text-muted">
+      <a href="{% url 'update_note' note.pk %}">Edit</a>
       <a href="{% url 'note_delete' note.pk %}">Delete</a>
     </div>
   </div>
