@@ -22,6 +22,14 @@ from website import models
 
 
 class HomePageView(View):
+    def get_queryset(self):
+        queryset = Folder.objects.filter(creator=self.request.user)
+        return queryset
+
+    def get_queryset(self):
+        queryset = Note.objects.filter(creator=self.request.user)
+        return queryset
+
     def get(self, request, *args, **kwargs):
         notes = []
         print("start Args")
@@ -29,10 +37,11 @@ class HomePageView(View):
         print("end Args")
         if args:
             notes = Note.objects.filter(folder=args[0])
+            notes = Note.objects.filter(creator=self.request.user)
             print("Here")
         else:
             notes = Note.objects.filter(folder='d435ab9e-086d-4d1b-89d8-0843a8377a47')
-        folders = Folder.objects.all()
+        folders = Folder.objects.filter(creator=self.request.user)
         template = loader.get_template('homepage.html')
         print(notes)
         context = {
@@ -51,6 +60,10 @@ class ListNotesView(ListView):
     model = Note
     fields = ('file_name',)
     context_object_name = 'notes'
+
+    def get_queryset(self):
+        queryset = Note.objects.filter(creator=self.request.user)
+        return queryset
 
 class CreateNoteView(CreateView):
     template_name = 'create_note.html'
