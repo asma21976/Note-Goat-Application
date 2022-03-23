@@ -55,17 +55,14 @@
                         {% csrf_token %}
                         {% for folder in folders %}
                             <div class="card" style="width: 18rem;">
-
-                                <button id="{{ folder.id }}"class="btn d-flex flex-column justify-content-center text-align-center m-1" style="row-gap: 8%; height: 30%; flex-basis: 15%;" value="{{ folder }}"> 
-                                    <i class="fa fa-folder fa-2x  h-50">
-
-                                    </i>
-                                        <h4 class=" h-50">{{folder}}</h4>
-                                    
+                                <button id="{{ folder.id }}"class="btn d-flex flex-column justify-content-center text-align-center m-1" style="row-gap: 8%; height: 60%; flex-basis: 15%;" value="{{ folder }}">
+                                    <i class="fa fa-folder fa-2x  h-50"></i>
+                                    <h4 class="h-50">{{folder}}</h4>
                                 </button>
 
                                 <a href="folder/{{ folder.id }}/update" class="btn btn-primary">Update</a>
                                         <a href="folder/{{ folder.id }}/delete" class="btn btn-danger">Delete</a>
+
                                 <!--- <a href="folder/{{ folder.id }}/update" class="btn btn-primary">Update</a> --->
                                 <script>
                                     $(" #{{ folder.id }}").click(function(e) {
@@ -100,14 +97,17 @@
                 <form class="notes d-flex w-100 h-100" style=" column-gap: 15%; overflow-y: scroll; overflow-x: hidden; flex-wrap: wrap; ">
                     {% csrf_token %}
                     {% for note in notes %}
-                        
-                        <button id="{{ note.id }}" class="btn d-flex flex-column justify-content-center text-align-center m-1" style="row-gap: 8%; height: 30%; flex-basis: 15%;"> 
+					<div class="card" style="width: 18rem;">
+                        <a href="note/{{ note.id }}/update" class="btn d-flex flex-column justify-content-center text-align-center m-1" style="row-gap: 8%; height: 30%; flex-basis: 15%;"> 
                             <i class="fa fa-file fa-2x  h-50">
 
                             </i>
                                 <h4 class=" h-50">{{note}}</h4>
+								
                             
                         </button>
+						<a href="note/{{ note.id }}/update" class="btn btn-primary">Update</a>
+                        <a href="note/{{ note.id }}/delete" class="btn btn-danger">Delete</a>
                         <script>
                             $(" #{{ note.id }}").click(function(e) {
                                 e.preventDefault();

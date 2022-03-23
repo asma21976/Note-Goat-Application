@@ -12,16 +12,25 @@ from .models import (
     Note, Folder,
 )
 
-# Create your views here.
-
 from django.http import HttpResponse
-# from django.views.generic import TemplateView, DetailView, ListView, FormView, View
 from django.views.generic.edit import FormMixin
 from django.template import loader
 from website import models
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+class WelcomeView(TemplateView):
+    template_name = 'welcome.html'
 
 
-class HomePageView(View):
+class HomePageView(LoginRequiredMixin, View):
+    def get_queryset(self):
+        queryset = Folder.objects.filter(creator=self.request.user)
+        return queryset
+
+    def get_queryset(self):
+        queryset = Note.objects.filter(creator=self.request.user)
+        return queryset
+
     def get(self, request, *args, **kwargs):
         notes = []
         print("start Args")
@@ -29,10 +38,11 @@ class HomePageView(View):
         print("end Args")
         if args:
             notes = Note.objects.filter(folder=args[0])
+            # notes = Note.objects.filter(creator=self.request.user)
             print("Here")
         else:
             notes = Note.objects.filter(folder='d435ab9e-086d-4d1b-89d8-0843a8377a47')
-        folders = Folder.objects.all()
+        folders = Folder.objects.filter(creator=self.request.user)
         template = loader.get_template('homepage.html')
         print(notes)
         context = {
@@ -46,13 +56,18 @@ class HomePageView(View):
         print(kwargs)
         return self.get(request, request.POST['id'], **kwargs)
 
-class ListNotesView(ListView):
+class ListNotesView(LoginRequiredMixin, ListView):
     template_name = 'list_note.html'
     model = Note
     fields = ('file_name',)
     context_object_name = 'notes'
 
-class CreateNoteView(CreateView):
+
+class CreateNoteView(LoginRequiredMixin, CreateView):
+    def get_queryset(self):
+        queryset = Note.objects.filter(creator=self.request.user)
+        return queryset
+      
     template_name = 'create_note.html'
     model = Note
     fields = ('file_name', 'text', 'folder','public')
@@ -63,7 +78,7 @@ class CreateNoteView(CreateView):
         form.instance.creator = self.request.user
         return super().form_valid(form)
 
-class NoteUpdateView(UpdateView):
+class NoteUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'create_note.html' #temp.
     form_class = NoteModelForm
     queryset = Note.objects.all()
@@ -71,26 +86,33 @@ class NoteUpdateView(UpdateView):
     success_url = reverse_lazy('list_notes')
     context_object_name = 'notes'
 
-class NoteDeleteView(DeleteView):
+class NoteDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'delete_note.html'
     model = Note
     fields = ('file_name',)
-    success_url = reverse_lazy('list_notes')
+    success_url = reverse_lazy('home')
     context_object_name = 'notes'
 
-class CreateFolderView(CreateView):
+class CreateFolderView(LoginRequiredMixin, CreateView):
     template_name = 'create_folder.html'
     model = Folder
     fields = ('folder_name',)
     success_url = reverse_lazy('home')
 
-class UpdateFolderView(UpdateView):
+
+class UpdateFolderView(LoginRequiredMixin, UpdateView):
+    def form_valid(self, form):
+        form.instance.creator = self.request.user
+        return super().form_valid(form)
+    
     template_name = 'update_folder.html'
     model = Folder
     fields = ['folder_name']
-    template_name_suffix = '_update_folder_form'
+    #template_name_suffix = '_update_folder_form'
+    success_url = reverse_lazy('home')
+    context_object_name = 'folder'
 
-class FolderDeleteView(DeleteView):
+class FolderDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'delete_folder.html'
     model = Folder
     fields = ('folder_name',)
