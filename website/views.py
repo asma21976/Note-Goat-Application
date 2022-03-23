@@ -37,7 +37,7 @@ class HomePageView(View):
         print("end Args")
         if args:
             notes = Note.objects.filter(folder=args[0])
-            notes = Note.objects.filter(creator=self.request.user)
+            # notes = Note.objects.filter(creator=self.request.user)
             print("Here")
         else:
             notes = Note.objects.filter(folder='d435ab9e-086d-4d1b-89d8-0843a8377a47')
