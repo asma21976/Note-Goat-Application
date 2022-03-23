@@ -6,7 +6,8 @@
     <h1>Update Folder</h1>
     <form method="post">{% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Update">
+		<button class="btn btn-primary ml-2" type="submit">Confirm</button>
+        <a href="{% url 'home' %}" class="btn btn-danger">Return</a>
     </form>
 </body>
 {% endblock page_content %}

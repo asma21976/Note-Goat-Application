@@ -23,6 +23,14 @@ class WelcomeView(TemplateView):
 
 
 class HomePageView(LoginRequiredMixin, View):
+    def get_queryset(self):
+        queryset = Folder.objects.filter(creator=self.request.user)
+        return queryset
+
+    def get_queryset(self):
+        queryset = Note.objects.filter(creator=self.request.user)
+        return queryset
+
     def get(self, request, *args, **kwargs):
         notes = []
         print("start Args")
@@ -30,10 +38,11 @@ class HomePageView(LoginRequiredMixin, View):
         print("end Args")
         if args:
             notes = Note.objects.filter(folder=args[0])
+            # notes = Note.objects.filter(creator=self.request.user)
             print("Here")
         else:
             notes = Note.objects.filter(folder='d435ab9e-086d-4d1b-89d8-0843a8377a47')
-        folders = Folder.objects.all()
+        folders = Folder.objects.filter(creator=self.request.user)
         template = loader.get_template('homepage.html')
         print(notes)
         context = {
@@ -53,7 +62,12 @@ class ListNotesView(LoginRequiredMixin, ListView):
     fields = ('file_name',)
     context_object_name = 'notes'
 
+
 class CreateNoteView(LoginRequiredMixin, CreateView):
+    def get_queryset(self):
+        queryset = Note.objects.filter(creator=self.request.user)
+        return queryset
+      
     template_name = 'create_note.html'
     model = Note
     fields = ('file_name', 'text', 'folder','public')
@@ -85,11 +99,18 @@ class CreateFolderView(LoginRequiredMixin, CreateView):
     fields = ('folder_name',)
     success_url = reverse_lazy('home')
 
+
 class UpdateFolderView(LoginRequiredMixin, UpdateView):
+    def form_valid(self, form):
+        form.instance.creator = self.request.user
+        return super().form_valid(form)
+    
     template_name = 'update_folder.html'
     model = Folder
     fields = ['folder_name']
-    template_name_suffix = '_update_folder_form'
+    #template_name_suffix = '_update_folder_form'
+    success_url = reverse_lazy('home')
+    context_object_name = 'folder'
 
 class FolderDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'delete_folder.html'
