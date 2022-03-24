@@ -1,0 +1,15 @@
+{% extends 'navbar.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Share{% endblock title %}
+{% block page_content %}
+<body>
+  <h1>.</h1>
+  <h1>Share</h1>
+  <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <a href="{% url 'shared_with_list' %}" class="btn btn-secondary">Return</a>
+      <button class="btn btn-success" type="submit">Share</button>
+  </form>
+</body>
+{% endblock page_content %}

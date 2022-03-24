@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from .forms import NoteModelForm
 
 from .models import (
-    Note, Folder,
+    Note, Folder, SharedWith
 )
 
 from django.http import HttpResponse
@@ -129,3 +129,40 @@ class FolderDeleteView(LoginRequiredMixin, DeleteView):
     fields = ('folder_name',)
     success_url = reverse_lazy('home')
     context_object_name = 'folder'
+
+
+class CreateSharedWithView(LoginRequiredMixin, CreateView):
+    template_name = 'shared_with/create.html'
+    model = SharedWith
+    fields = ('person', 'note', 'editor',)
+    context_object_name = 'shared_with'
+    success_url = reverse_lazy('shared_with_list')
+
+
+class SharedWithUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = 'shared_with/update.html'
+    model = SharedWith
+    fields = ('editor',)
+    context_object_name = 'shared_with'
+    success_url = reverse_lazy('shared_with_list')
+
+
+class SharedWithDeleteView(LoginRequiredMixin, DeleteView):
+    template_name = 'shared_with/delete.html'
+    model = SharedWith
+    context_object_name = 'shared_with'
+    success_url = reverse_lazy('shared_with_list')
+
+
+class ListSharedWithView(LoginRequiredMixin, ListView):
+
+    def get_queryset(self):
+        queryset = SharedWith.objects.filter(
+            Q(person=self.request.user) | Q(note.file_name='my second note')
+        )
+        return queryset
+
+    template_name = 'shared_with/list.html'
+    model = SharedWith
+    fields = ('person', 'note', 'editor',)
+    context_object_name = 'shared_with'

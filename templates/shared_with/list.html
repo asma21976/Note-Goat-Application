@@ -1,0 +1,18 @@
+{% extends 'navbar.html' %}
+{% block page_content %}
+<head>
+  <meta charset="UTF-8">
+  <title>Sharing</title>
+</head>
+<body>
+  <h1>Sharing</h1>
+  <br>
+  {% for shared_with_item in shared_with %}
+  <p><b>Person: {{ shared_with_item.person }}</b></p>
+  <p><b>Note: {{ shared_with_item.note }}</b></p>
+  <p>Editor: {{ shared_with_item.editor }}</p>
+  <br>
+  {% endfor %}
+  <a href="{% url 'shared_with_create' %}" class="btn btn-info ml-2" >share</a>
+</body>
+{% endblock page_content %}
