@@ -90,8 +90,8 @@ class NoteUpdateView(LoginRequiredMixin, UpdateView):
     form_class = NoteModelForm
     queryset = Note.objects.all()
     model = Note
-    success_url = reverse_lazy('list_notes')
-    context_object_name = 'home'
+    success_url = reverse_lazy('home')
+    context_object_name = 'notes'
 
 class NoteDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'delete_note.html'

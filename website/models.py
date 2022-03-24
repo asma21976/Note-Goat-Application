@@ -30,7 +30,7 @@ class Note(models.Model):
     sharing = models.ManyToManyField(get_user_model(), related_name='shared_notes', through='SharedWith')
 
     # created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    updated = models.DateTimeField(auto_now=True, blank=True)
 
     def __str__(self):
         return self.file_name

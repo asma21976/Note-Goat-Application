@@ -1,14 +1,13 @@
 {% extends 'navbar.html' %}
-{% block title %}Create Note{% endblock title %}
+{% block title %}Update Note{% endblock title %}
 {% block page_content %}
 <head>
 	{{ form.media }}
 </head>
 <body>
     <h1>.</h1>
-    <h1>Create a Note!</h1>
+    <h1>Update a Note!</h1>
     <form method="post">
-	  <p>Time created: {{ notes.created }} UTC</p>
 	  <p>Time edited: {{ notes.updated }} UTC</p>
       {% csrf_token %}
       {{ form.as_p }}
