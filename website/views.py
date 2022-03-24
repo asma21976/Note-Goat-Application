@@ -74,6 +74,14 @@ class CreateNoteView(LoginRequiredMixin, CreateView):
         queryset = Note.objects.filter(creator=self.request.user)
         return queryset
       
+    def get_form_kwargs(self):
+        """ Passes the request object to the form class.
+         This is necessary to only display members that belong to a given user"""
+
+        kwargs = super(CreateNoteView, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
     template_name = 'create_note.html'
     model = Note
     # fields = ('file_name', 'text', 'folder','public')
@@ -86,6 +94,14 @@ class CreateNoteView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 class NoteUpdateView(LoginRequiredMixin, UpdateView):
+    def get_form_kwargs(self):
+        """ Passes the request object to the form class.
+         This is necessary to only display members that belong to a given user"""
+
+        kwargs = super(NoteUpdateView, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
     template_name = 'update_note.html'
     form_class = NoteModelForm
     queryset = Note.objects.all()
