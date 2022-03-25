@@ -18,6 +18,8 @@ from django.template import loader
 from website import models
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+import datetime
+
 class WelcomeView(TemplateView):
     template_name = 'welcome.html'
 
@@ -62,16 +64,29 @@ class ListNotesView(LoginRequiredMixin, ListView):
     fields = ('file_name',)
     context_object_name = 'notes'
 
+    def get_queryset(self):
+        queryset = Note.objects.filter(creator=self.request.user)
+        return queryset
+
 
 class CreateNoteView(LoginRequiredMixin, CreateView):
     def get_queryset(self):
         queryset = Note.objects.filter(creator=self.request.user)
         return queryset
       
+    def get_form_kwargs(self):
+        """ Passes the request object to the form class.
+         This is necessary to only display members that belong to a given user"""
+
+        kwargs = super(CreateNoteView, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
     template_name = 'create_note.html'
     model = Note
-    fields = ('file_name', 'text', 'folder','public')
-    context_object_name = 'note'
+    # fields = ('file_name', 'text', 'folder','public')
+    form_class = NoteModelForm
+    context_object_name = 'notes'
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
@@ -79,11 +94,19 @@ class CreateNoteView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 class NoteUpdateView(LoginRequiredMixin, UpdateView):
-    template_name = 'create_note.html' #temp.
+    def get_form_kwargs(self):
+        """ Passes the request object to the form class.
+         This is necessary to only display members that belong to a given user"""
+
+        kwargs = super(NoteUpdateView, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
+    template_name = 'update_note.html'
     form_class = NoteModelForm
     queryset = Note.objects.all()
     model = Note
-    success_url = reverse_lazy('list_notes')
+    success_url = reverse_lazy('home')
     context_object_name = 'notes'
 
 class NoteDeleteView(LoginRequiredMixin, DeleteView):
@@ -98,6 +121,10 @@ class CreateFolderView(LoginRequiredMixin, CreateView):
     model = Folder
     fields = ('folder_name',)
     success_url = reverse_lazy('home')
+
+    def form_valid(self, form):
+        form.instance.creator = self.request.user
+        return super().form_valid(form) 
 
 
 class UpdateFolderView(LoginRequiredMixin, UpdateView):
