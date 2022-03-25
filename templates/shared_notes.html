@@ -46,14 +46,18 @@
                         {% for shared in shared_with %}
                             {% if note == shared.note %}
 					<div class="card" style="width: 18rem;">
-                        <a href="note/{{ note.id }}/update" class="btn d-flex flex-column justify-content-center text-align-center m-1" style="row-gap: 8%; height: 30%; flex-basis: 15%;">
+						{% if shared.editor %}
+                        <a href="{% url 'shared_update_note' note.pk %}" class="btn d-flex flex-column justify-content-center text-align-center m-1" style="row-gap: 8%; height: 30%; flex-basis: 15%;">
+						{% else %}
+						<a href="{% url 'note_view' note.pk %}" class="btn d-flex flex-column justify-content-center text-align-center m-1" style="row-gap: 8%; height: 30%; flex-basis: 15%;">
+						{% endif %}
                             <i class="fa fa-file fa-2x  h-50">
 
                             </i>
                                 <h4 class=" h-50">{{note}}</h4>
                         </button>
                         {% if shared.editor %}
-						<a href="{% url 'update_note' note.pk %}" class="btn btn-primary">Update</a>
+						<a href="{% url 'shared_update_note' note.pk %}" class="btn btn-primary">Update</a>
                          {% else %}
                          <a href="{% url 'note_view' note.pk %}" class="btn btn-primary">View</a>
                          {% endif %}

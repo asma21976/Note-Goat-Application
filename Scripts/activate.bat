@@ -1,6 +1,6 @@
 @echo off
 
-set "VIRTUAL_ENV=C:\Users\zainj\Desktop\SENG 401 fr fr fr\Note-Goat-Application-Frontend-"
+set "VIRTUAL_ENV=C:\Users\zainj\Desktop\SENG 401 fr fr fr fr\Note-Goat-Application-Frontend-"
 
 if defined _OLD_VIRTUAL_PROMPT (
     set "PROMPT=%_OLD_VIRTUAL_PROMPT%"

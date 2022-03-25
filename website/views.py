@@ -6,7 +6,7 @@ from django.views.generic import (
     TemplateView, CreateView, ListView, UpdateView, DeleteView, DetailView, FormView, View
 )
 from django.urls import reverse_lazy
-from .forms import NoteModelForm
+from .forms import NoteModelForm, SharedNoteModelForm, CreateSharedWithForm
 
 from .models import (
     Note, Folder, SharedWith
@@ -111,6 +111,14 @@ class NoteUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('home')
     context_object_name = 'notes'
 
+class SharedNoteUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = 'update_note.html'
+    form_class = SharedNoteModelForm
+    queryset = Note.objects.all()
+    model = Note
+    success_url = reverse_lazy('home')
+    context_object_name = 'notes'
+
 class NoteDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'delete_note.html'
     model = Note
@@ -148,11 +156,20 @@ class FolderDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('home')
     context_object_name = 'folder'
 
-
 class CreateSharedWithView(LoginRequiredMixin, CreateView):
+    def get_form_kwargs(self):
+        """ Passes the request object to the form class.
+         This is necessary to only display members that belong to a given user"""
+
+        kwargs = super(CreateSharedWithView, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
     template_name = 'shared_with/create.html'
     model = SharedWith
-    fields = ('person', 'note', 'editor',)
+    # fields = ('person', 'note', 'editor',)
+    form_class = CreateSharedWithForm
+    queryset = SharedWith.objects.all()
     context_object_name = 'shared_with'
     success_url = reverse_lazy('home')
 
