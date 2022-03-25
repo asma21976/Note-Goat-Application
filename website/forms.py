@@ -44,6 +44,8 @@ class CreateSharedWithForm(forms.ModelForm):
         self.fields['note'].queryset = Note.objects.filter(
             creator=self.request.user)
     
+    #person = forms.CharField(max_length=100)
+
     class Meta: 
         model = SharedWith
         fields = [
