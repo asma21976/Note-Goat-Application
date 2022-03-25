@@ -62,8 +62,6 @@
 
                                 <a href="folder/{{ folder.id }}/update" class="btn btn-primary">Update</a>
                                 <a href="folder/{{ folder.id }}/delete" class="btn btn-danger">Delete</a>
-
-                                <!--- <a href="folder/{{ folder.id }}/update" class="btn btn-primary">Update</a> --->
                                 <script>
                                     $(" #{{ folder.id }}").click(function(e) {
                                         e.preventDefault();
@@ -118,6 +116,10 @@
                     {% endfor %}
                 </form>
             </div>
+
+            <div class="main-view d-flex flex-column w-85 h-100" style="width: 85vw; column-gap: 0px">
+
+                
         </div>
     </div>
 </body>

@@ -45,11 +45,13 @@ class HomePageView(LoginRequiredMixin, View):
         else:
             notes = Note.objects.filter(folder='d435ab9e-086d-4d1b-89d8-0843a8377a47')
         folders = Folder.objects.filter(creator=self.request.user)
+        shared_with = SharedWith.objects.filter(person=self.request.user)
         template = loader.get_template('homepage.html')
         print(notes)
         context = {
             'folders': folders,
-            'notes': notes
+            'notes': notes,
+            'shared_with': shared_with,
         }
         return HttpResponse(template.render(context, request))
 
