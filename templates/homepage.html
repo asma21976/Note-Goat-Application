@@ -107,7 +107,7 @@
                             
                         </button>
 						<a href="note/{{ note.id }}/update" class="btn btn-primary">Update</a>
-                        <a href="{% url 'shared_with_list' %}" class="btn btn-info">Share</a>
+                        <a href="{% url 'shared_with_list' note.pk %}" class="btn btn-info">Share</a>
                         <a href="note/{{ note.id }}/delete" class="btn btn-danger">Delete</a>
                         <script>
                             $(" #{{ note.id }}").click(function(e) {

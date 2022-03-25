@@ -8,7 +8,7 @@
   <form method="post">
       {% csrf_token %}
       {{ form|crispy }}
-      <a href="{% url 'shared_with_list' %}" class="btn btn-secondary">Return</a>
+      <a href="{% url 'home' %}" class="btn btn-secondary">Return</a>
       <button class="btn btn-success" type="submit">Share</button>
   </form>
 </body>

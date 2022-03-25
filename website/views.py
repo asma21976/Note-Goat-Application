@@ -136,33 +136,28 @@ class CreateSharedWithView(LoginRequiredMixin, CreateView):
     model = SharedWith
     fields = ('person', 'note', 'editor',)
     context_object_name = 'shared_with'
-    success_url = reverse_lazy('shared_with_list')
-
+    success_url = reverse_lazy('home')
 
 class SharedWithUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'shared_with/update.html'
     model = SharedWith
     fields = ('editor',)
     context_object_name = 'shared_with'
-    success_url = reverse_lazy('shared_with_list')
-
+    success_url = reverse_lazy('home')
 
 class SharedWithDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'shared_with/delete.html'
     model = SharedWith
     context_object_name = 'shared_with'
-    success_url = reverse_lazy('shared_with_list')
+    success_url = reverse_lazy('home')
 
 
-class ListSharedWithView(LoginRequiredMixin, ListView):
-
-    def get_queryset(self):
-        queryset = SharedWith.objects.filter(
-            Q(person=self.request.user) | Q(note.file_name='my second note')
-        )
-        return queryset
-
+class ListSharedWithView(LoginRequiredMixin, DetailView):
     template_name = 'shared_with/list.html'
-    model = SharedWith
-    fields = ('person', 'note', 'editor',)
-    context_object_name = 'shared_with'
+    model = Note
+    context_object_name = 'shared_with_list'
+
+    def get_context_data(self, **kwargs):
+        ctx = super(ListSharedWithView, self).get_context_data(**kwargs)
+        ctx['shared_with'] = SharedWith.objects.all()
+        return ctx

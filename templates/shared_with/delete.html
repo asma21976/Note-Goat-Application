@@ -4,6 +4,6 @@
     <form action="" method="post">{% csrf_token %}
         <p>Are you sure you don't want to share "{{ shared_with.note }}" with {{ stores.person }}?</p>
         <button class="btn btn-danger ml-2" type="submit">Confirm</button>
-        <a href="{% url 'shared_with_list' %}" class="btn btn-primary">Return</a>
+        <a href="{% url 'home' %}" class="btn btn-primary">Return</a>
     </form>
 {% endblock page_content %}

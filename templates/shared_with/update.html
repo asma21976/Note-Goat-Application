@@ -6,6 +6,6 @@
     <form action="" method="post">{% csrf_token %}
       {{ form|crispy }}
         <button class="btn btn-info ml-2" type="submit">Update</button>
-        <a href="{% url 'shared_with_list' %}" class="btn btn-primary">Return</a>
+        <a href="{% url 'home' %}" class="btn btn-primary">Return</a>
     </form>
 {% endblock page_content %}
