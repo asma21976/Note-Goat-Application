@@ -11,7 +11,7 @@ import datetime
 
 class Folder(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, )
-    folder_name = models.CharField(max_length=50, default="New Folder", unique=True)
+    folder_name = models.CharField(max_length=50, default="New Folder",)
     creator = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
     def __str__(self):
