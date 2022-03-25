@@ -2,7 +2,7 @@ from django.urls import path
 from .views import (
     HomePageView, CreateNoteView, ListNotesView, NoteDeleteView, UpdateFolderView,
     NoteUpdateView, CreateFolderView, FolderDeleteView, WelcomeView, ListSharedWithView, CreateSharedWithView,
-    SharedWithDeleteView, SharedWithUpdateView)
+    SharedWithDeleteView, SharedWithUpdateView, ListSharedNotes)
 
 urlpatterns = [
     path('home', HomePageView.as_view(), name='home'),
@@ -18,4 +18,5 @@ urlpatterns = [
     path('sharing/<uuid:pk>/edit/', SharedWithUpdateView.as_view(), name='shared_with_update'),
     path('sharing/create', CreateSharedWithView.as_view(), name='shared_with_create'),
     path('sharing/<uuid:pk>/delete/', SharedWithDeleteView.as_view(), name='shared_with_delete'),
+    path('shared_notes/', ListSharedNotes.as_view(), name='shared_notes'),
 ]

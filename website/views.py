@@ -161,3 +161,13 @@ class ListSharedWithView(LoginRequiredMixin, DetailView):
         ctx = super(ListSharedWithView, self).get_context_data(**kwargs)
         ctx['shared_with'] = SharedWith.objects.all()
         return ctx
+
+class ListSharedNotes(LoginRequiredMixin, ListView):
+    template_name = 'shared_notes.html'
+    model = Note
+    context_object_name = 'shared_with_notes'
+
+    def get_context_data(self, **kwargs):
+        ctx = super(ListSharedNotes, self).get_context_data(**kwargs)
+        ctx['shared_with'] = SharedWith.objects.filter(person=self.request.user)
+        return ctx
