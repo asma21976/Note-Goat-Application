@@ -167,7 +167,11 @@
                     {% csrf_token %}
                      {% for shared in shared_with %}
 					<div class="card" style="height: 10rem;width: 18rem;">
+						{% if shared.editor %}
                         <a href="{% url 'shared_update_note' shared.note.pk %}" class="btn d-flex flex-column " style="row-gap: 8%;">
+						{% else %}
+                        <a href="{% url 'note_view' shared.note.pk %}" class="btn d-flex flex-column " style="row-gap: 8%;">
+                        {% endif %}
                             <i class="fa fa-file fa-2x  h-50">
 
                             </i>
