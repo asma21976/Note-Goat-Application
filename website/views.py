@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from .forms import NoteModelForm
 
 from .models import (
-    Note, Folder,
+    Note, Folder, SharedWith
 )
 
 from django.http import HttpResponse
@@ -45,11 +45,13 @@ class HomePageView(LoginRequiredMixin, View):
         else:
             notes = Note.objects.filter(folder='d435ab9e-086d-4d1b-89d8-0843a8377a47')
         folders = Folder.objects.filter(creator=self.request.user)
+        shared_with = SharedWith.objects.filter(person=self.request.user)
         template = loader.get_template('homepage.html')
         print(notes)
         context = {
             'folders': folders,
-            'notes': notes
+            'notes': notes,
+            'shared_with': shared_with,
         }
         return HttpResponse(template.render(context, request))
 
@@ -145,3 +147,51 @@ class FolderDeleteView(LoginRequiredMixin, DeleteView):
     fields = ('folder_name',)
     success_url = reverse_lazy('home')
     context_object_name = 'folder'
+
+
+class CreateSharedWithView(LoginRequiredMixin, CreateView):
+    template_name = 'shared_with/create.html'
+    model = SharedWith
+    fields = ('person', 'note', 'editor',)
+    context_object_name = 'shared_with'
+    success_url = reverse_lazy('home')
+
+class SharedWithUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = 'shared_with/update.html'
+    model = SharedWith
+    fields = ('editor',)
+    context_object_name = 'shared_with'
+    success_url = reverse_lazy('home')
+
+class SharedWithDeleteView(LoginRequiredMixin, DeleteView):
+    template_name = 'shared_with/delete.html'
+    model = SharedWith
+    context_object_name = 'shared_with'
+    success_url = reverse_lazy('home')
+
+
+class ListSharedWithView(LoginRequiredMixin, DetailView):
+    template_name = 'shared_with/list.html'
+    model = Note
+    context_object_name = 'shared_with_list'
+
+    def get_context_data(self, **kwargs):
+        ctx = super(ListSharedWithView, self).get_context_data(**kwargs)
+        ctx['shared_with'] = SharedWith.objects.all()
+        return ctx
+
+class ListSharedNotes(LoginRequiredMixin, ListView):
+    template_name = 'shared_notes.html'
+    model = Note
+    context_object_name = 'shared_with_notes'
+
+    def get_context_data(self, **kwargs):
+        ctx = super(ListSharedNotes, self).get_context_data(**kwargs)
+        ctx['shared_with'] = SharedWith.objects.filter(person=self.request.user)
+        return ctx
+
+
+class NoteView(LoginRequiredMixin, DetailView):
+    template_name = 'view_shared_note.html'
+    model = Note
+    context_object_name = 'note'

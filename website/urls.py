@@ -1,5 +1,8 @@
 from django.urls import path
-from .views import HomePageView, CreateNoteView, ListNotesView, NoteDeleteView, UpdateFolderView, NoteUpdateView, CreateFolderView, FolderDeleteView, WelcomeView
+from .views import (
+    HomePageView, CreateNoteView, ListNotesView, NoteDeleteView, UpdateFolderView,
+    NoteUpdateView, CreateFolderView, FolderDeleteView, WelcomeView, ListSharedWithView, CreateSharedWithView,
+    SharedWithDeleteView, SharedWithUpdateView, ListSharedNotes, NoteView)
 
 urlpatterns = [
     path('home', HomePageView.as_view(), name='home'),
@@ -11,4 +14,10 @@ urlpatterns = [
     path('folder/<uuid:pk>/update/', UpdateFolderView.as_view(), name='folder_update'),
     path('folder/<uuid:pk>/delete/', FolderDeleteView.as_view(), name='folder_delete'),
     path('', WelcomeView.as_view(), name='welcome_page'),
+    path('sharing/<uuid:pk>/list/', ListSharedWithView.as_view(), name='shared_with_list'),
+    path('sharing/<uuid:pk>/edit/', SharedWithUpdateView.as_view(), name='shared_with_update'),
+    path('sharing/create', CreateSharedWithView.as_view(), name='shared_with_create'),
+    path('sharing/<uuid:pk>/delete/', SharedWithDeleteView.as_view(), name='shared_with_delete'),
+    path('shared_notes/', ListSharedNotes.as_view(), name='shared_notes'),
+    path('note/<uuid:pk>/view/', NoteView.as_view(), name='note_view'),
 ]

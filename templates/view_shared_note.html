@@ -1,0 +1,16 @@
+{% extends 'navbar.html' %}
+{% block title %} View Note {% endblock title %}
+{% block page_content %}
+<div>
+  <h1>.</h1>
+  <h1>View Note: {{ object.file_name }}</h1>
+  <p>Created by: {{ object.creator }}</p>
+  <p>Last Updated: {{ object.updated }}</p>
+  <div>
+    {% autoescape off %}
+      {{ note.text }}
+    {% endautoescape %}
+  </div>
+  <a href="{% url 'shared_notes' %}" class="btn btn-primary">Return</a>
+</body>
+{% endblock page_content %}

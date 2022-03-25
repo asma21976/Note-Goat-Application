@@ -61,9 +61,7 @@
                                 </button>
 
                                 <a href="folder/{{ folder.id }}/update" class="btn btn-primary">Update</a>
-                                        <a href="folder/{{ folder.id }}/delete" class="btn btn-danger">Delete</a>
-
-                                <!--- <a href="folder/{{ folder.id }}/update" class="btn btn-primary">Update</a> --->
+                                <a href="folder/{{ folder.id }}/delete" class="btn btn-danger">Delete</a>
                                 <script>
                                     $(" #{{ folder.id }}").click(function(e) {
                                         e.preventDefault();
@@ -107,6 +105,7 @@
                             
                         </button>
 						<a href="note/{{ note.id }}/update" class="btn btn-primary">Update</a>
+                        <a href="{% url 'shared_with_list' note.pk %}" class="btn btn-info">Share</a>
                         <a href="note/{{ note.id }}/delete" class="btn btn-danger">Delete</a>
                         <script>
                             $(" #{{ note.id }}").click(function(e) {
@@ -117,6 +116,10 @@
                     {% endfor %}
                 </form>
             </div>
+
+            <div class="main-view d-flex flex-column w-85 h-100" style="width: 85vw; column-gap: 0px">
+
+                
         </div>
     </div>
 </body>

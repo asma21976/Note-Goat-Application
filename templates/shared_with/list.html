@@ -1,0 +1,24 @@
+{% extends 'navbar.html' %}
+{% block page_content %}
+<h1>Sharing</h1>
+<br>
+  <div class="card">
+    <div class="card-header">
+      <span class="text-muted">{{ object.file_name }}</span>
+    </div>
+    <div class="card-body">
+      <p><b>Sharing:</b></p>
+      {% for x in shared_with %}
+        {% if object == x.note %}
+          <div class="card-body">
+            {{ x.person }}
+            <a href="{% url 'shared_with_update' x.pk %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'shared_with_delete' x.pk %}" class="btn btn-primary">Delete</a>
+          </div>
+        {% endif %}
+      {% endfor %}
+      <a href="{% url 'shared_with_create' %}" class="btn btn-primary">Share</a>
+    </div>
+  </div>
+</br>
+{% endblock page_content %}

@@ -1,0 +1,75 @@
+{% extends 'navbar.html' %}
+{% block title %}Home{% endblock title %}
+{% block page_content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<body>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript"> window.CSRF_TOKEN = "{{ csrf_token }}"; </script>
+    <h1>.</h1>
+    <div class="homepage d-flex vw-100" style="height:94.2vh">
+        <div class="note-nav  p-3 mb-2 bg-secondary text-white w-15 h-100">
+            <h3>Notes</h3>
+            <form class="note-nav-form m-3" action="" method="POST">
+                {% csrf_token %}
+                <div class="chek-div d-flex">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" checked="checked" named="boxes">
+                    </div>
+                    <label for="form-check">My Notes</label>
+                </div>
+                <div class="chek-div d-flex">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" checked="checked" named="boxes">
+                    </div>
+                    <label for="form-check-input">Shared Notes</label>
+                </div>
+                <div class="chek-div d-flex">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" checked="checked" named="boxes">
+                    </div>
+                    <label for="form-check-input">All Notes</label>
+                </div>
+            </form>
+        </div>
+        <div class="main-view d-flex flex-column w-85 h-100" style="width: 85vw; column-gap: 0px">
+
+                <form class="create-form w-100">
+                    <div class="d-flex w-100 justify-content-center" style="column-gap: 10px">
+                        <h2>Shared Notes</h2>
+                    </div>
+                </form>
+
+            <div id="notes" class="note-view w-100 h-50" style="border-top: solid 5px black;">
+                <form class="notes d-flex w-100 h-100" style=" column-gap: 15%; overflow-y: scroll; overflow-x: hidden; flex-wrap: wrap; ">
+                    {% csrf_token %}
+                     {% for note in shared_with_notes %}
+                        {% for shared in shared_with %}
+                            {% if note == shared.note %}
+					<div class="card" style="width: 18rem;">
+                        <a href="note/{{ note.id }}/update" class="btn d-flex flex-column justify-content-center text-align-center m-1" style="row-gap: 8%; height: 30%; flex-basis: 15%;">
+                            <i class="fa fa-file fa-2x  h-50">
+
+                            </i>
+                                <h4 class=" h-50">{{note}}</h4>
+                        </button>
+                        {% if shared.editor %}
+						<a href="{% url 'update_note' note.pk %}" class="btn btn-primary">Update</a>
+                         {% else %}
+                         <a href="{% url 'note_view' note.pk %}" class="btn btn-primary">View</a>
+                         {% endif %}
+                        <script>
+                            $(" #{{ note.id }}").click(function(e) {
+                                e.preventDefault();
+                                window.location.href = "note/{{ note.id }}"
+                            })
+                        </script>
+                            {% endif %}
+                            {% endfor %}
+                    {% endfor %}
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+{% endblock page_content %}
