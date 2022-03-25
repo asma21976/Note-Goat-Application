@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'accounts',
 
     #3rd party
-    'phonenumber_field',
     'crispy_forms',
     'tinymce',
 ]
