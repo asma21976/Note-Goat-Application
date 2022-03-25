@@ -55,7 +55,7 @@
                         {% if shared.editor %}
 						<a href="#" class="btn btn-primary">Update</a>
                          {% else %}
-                         <a href="#" class="btn btn-primary">View</a>
+                         <a href="{% url 'note_view' note.pk %}" class="btn btn-primary">View</a>
                          {% endif %}
                         <script>
                             $(" #{{ note.id }}").click(function(e) {
