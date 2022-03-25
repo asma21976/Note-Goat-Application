@@ -3,7 +3,7 @@ from urllib import request
 from django.shortcuts import render
 from django.views import generic
 from django.views.generic import (
-    TemplateView, CreateView, ListView, UpdateView, DeleteView, DetailView, FormView, View
+    TemplateView, CreateView, UpdateView, DeleteView, DetailView, View
 )
 from django.urls import reverse_lazy
 from .forms import NoteModelForm, SharedNoteModelForm, CreateSharedWithForm
@@ -60,17 +60,6 @@ class HomePageView(LoginRequiredMixin, View):
         print(kwargs)
         return self.get(request, request.POST['id'], **kwargs)
 
-class ListNotesView(LoginRequiredMixin, ListView):
-    template_name = 'list_note.html'
-    model = Note
-    fields = ('file_name',)
-    context_object_name = 'notes'
-
-    def get_queryset(self):
-        queryset = Note.objects.filter(creator=self.request.user)
-        return queryset
-
-
 class CreateNoteView(LoginRequiredMixin, CreateView):
     def get_queryset(self):
         queryset = Note.objects.filter(creator=self.request.user)
@@ -86,7 +75,6 @@ class CreateNoteView(LoginRequiredMixin, CreateView):
 
     template_name = 'create_note.html'
     model = Note
-    # fields = ('file_name', 'text', 'folder','public')
     form_class = NoteModelForm
     context_object_name = 'notes'
     success_url = reverse_lazy('home')
@@ -195,16 +183,6 @@ class ListSharedWithView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         ctx = super(ListSharedWithView, self).get_context_data(**kwargs)
         ctx['shared_with'] = SharedWith.objects.all()
-        return ctx
-
-class ListSharedNotes(LoginRequiredMixin, ListView):
-    template_name = 'shared_notes.html'
-    model = Note
-    context_object_name = 'shared_with_notes'
-
-    def get_context_data(self, **kwargs):
-        ctx = super(ListSharedNotes, self).get_context_data(**kwargs)
-        ctx['shared_with'] = SharedWith.objects.filter(person=self.request.user)
         return ctx
 
 

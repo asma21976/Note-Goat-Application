@@ -1,5 +1,7 @@
 from django import forms
 from .models import Note, Folder, SharedWith
+from django.contrib.auth import get_user_model
+from accounts.models import CustomUser
 from tinymce.widgets import TinyMCE
 
 class NoteModelForm(forms.ModelForm):
@@ -19,7 +21,6 @@ class NoteModelForm(forms.ModelForm):
         fields = [
             'file_name',
             'folder',
-            'public',
             'text',
         ]
 
@@ -30,7 +31,6 @@ class SharedNoteModelForm(forms.ModelForm):
         model = Note
         fields = [
             'file_name',
-            'public',
             'text',
         ]
 
@@ -43,6 +43,8 @@ class CreateSharedWithForm(forms.ModelForm):
         super(CreateSharedWithForm, self).__init__(*args, **kwargs)
         self.fields['note'].queryset = Note.objects.filter(
             creator=self.request.user)
+        self.fields['person'].queryset = CustomUser.objects.exclude(
+            username = self.request.user.username)
     
     #person = forms.CharField(max_length=100)
 

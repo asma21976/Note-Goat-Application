@@ -23,7 +23,6 @@ class Note(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False,)
     file_name = models.CharField(max_length=50, default="New Note",)
     text = models.TextField(blank=True)
-    public = models.BooleanField(default=False)
     creator = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     folder = models.ForeignKey(Folder, on_delete=models.CASCADE, null=True)
 
