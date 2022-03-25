@@ -53,7 +53,7 @@
                                 <h4 class=" h-50">{{note}}</h4>
                         </button>
                         {% if shared.editor %}
-						<a href="#" class="btn btn-primary">Update</a>
+						<a href="{% url 'update_note' note.pk %}" class="btn btn-primary">Update</a>
                          {% else %}
                          <a href="{% url 'note_view' note.pk %}" class="btn btn-primary">View</a>
                          {% endif %}
