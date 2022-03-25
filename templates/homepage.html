@@ -35,8 +35,10 @@
                     allNotesCheck = $("#all-notes")
                     myNotesCheck.click(function(e) {
                         if (myNotesCheck.get(0).checked) {
+                            $("#folders-view").show()
                             $("#notes").show()
                         } else {
+                            $("#folders-view").hide()
                             $("#notes").hide()
                         }
                     })
@@ -51,11 +53,13 @@
                         if (allNotesCheck.get(0).checked) {
                             sharedNotesCheck.get(0).checked = true
                             myNotesCheck.get(0).checked = true
+                            $("#folders-view").show()
                             $("#notes").show()
                             $("#shared-notes-view").show()
                         } else {
                             sharedNotesCheck.get(0).checked = false
                             myNotesCheck.get(0).checked = false
+                            $("#folders-view").hide()
                             $("#notes").hide()
                             $("#shared-notes-view").hide()
                         }
@@ -83,52 +87,53 @@
                     </div>
                 </form>
                 <div class="views h-100 w-100 d-flex flex-column">
-
-                    {% block messages %}
-                    <form class="folders d-flex w-100 h-100" style=" column-gap: 15%; overflow-y: scroll; overflow-x: hidden; flex-wrap: wrap;">
-                        {% csrf_token %}
-                        {% for folder in folders %}
-                            <div class="card " style="height: 10rem; width: 18rem;">
-                                <button id="{{ folder.id }}"class="btn d-flex flex-column justify-content-center text-align-center m-1" style="row-gap: 8%; height: 60%; flex-basis: 15%; align-items: center;" value="{{ folder }}">
-                                    <i class="fa fa-folder fa-2x  h-50"></i>
-                                    <h4 class="h-50">{{folder}}</h4>
-                                </button>
-                                <div class="dropdown" style="align-self: center;">
-                                    <button class="dropbtn">•••</button>
-                                    <div class="dropdown-content">
-                                        <a href="folder/{{ folder.id }}/update" class="btn btn-primary">Update</a>
-                                        <a href="folder/{{ folder.id }}/delete" class="btn btn-danger">Delete</a>
+                    <div id="folders-view">
+                        {% block messages %}
+                        <form class="folders d-flex w-100 h-100" style=" column-gap: 15%; overflow-y: scroll; overflow-x: hidden; flex-wrap: wrap;">
+                            {% csrf_token %}
+                            {% for folder in folders %}
+                                <div class="card " style="height: 10rem; width: 18rem;">
+                                    <button id="{{ folder.id }}"class="btn d-flex flex-column justify-content-center text-align-center m-1" style="row-gap: 8%; height: 60%; flex-basis: 15%; align-items: center;" value="{{ folder }}">
+                                        <i class="fa fa-folder fa-2x  h-50"></i>
+                                        <h4 class="h-50">{{folder}}</h4>
+                                    </button>
+                                    <div class="dropdown" style="align-self: center;">
+                                        <button class="dropbtn">•••</button>
+                                        <div class="dropdown-content">
+                                            <a href="folder/{{ folder.id }}/update" class="btn btn-primary">Update</a>
+                                            <a href="folder/{{ folder.id }}/delete" class="btn btn-danger">Delete</a>
+                                        </div>
                                     </div>
-                                </div>
-                                <script>
-                                    $(" #{{ folder.id }}").click(function(e) {
-                                        e.preventDefault();
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "",
-                                            data: {
-                                                id: "{{ folder.id }}",
-                                                csrfmiddlewaretoken: window.CSRF_TOKEN
-                                            },
-                                            success: function(result) {
-                                                $('#notes').replaceWith($('#notes', result));
-                                                if (!$("#my-notes").get(0).checked)
-                                                    $("#my-notes").get(0).checked = true
-                                            },
-                                            error: function(result) {
+                                    <script>
+                                        $(" #{{ folder.id }}").click(function(e) {
+                                            e.preventDefault();
+                                            $.ajax({
+                                                type: "POST",
+                                                url: "",
+                                                data: {
+                                                    id: "{{ folder.id }}",
+                                                    csrfmiddlewaretoken: window.CSRF_TOKEN
+                                                },
+                                                success: function(result) {
+                                                    $('#notes').replaceWith($('#notes', result));
+                                                    if (!$("#my-notes").get(0).checked)
+                                                        $("#my-notes").get(0).checked = true
+                                                },
+                                                error: function(result) {
 
-                                            }
+                                                }
+                                            })
                                         })
-                                    })
 
 
-                                </script>
+                                    </script>
 
 
-                            </div>
-                        {% endfor %}
-                    </form>
-                    {% endblock messages %}
+                                </div>
+                            {% endfor %}
+                        </form>
+                        {% endblock messages %}
+                </div>
             <div id="notes" class="note-view w-100 h-100" style="border-top: solid 5px black;">
                 <form class="notes d-flex w-100 h-100" style=" column-gap: 15%; overflow-y: scroll; overflow-x: hidden; flex-wrap: wrap; ">
                     {% csrf_token %}
@@ -167,11 +172,7 @@
                     {% csrf_token %}
                      {% for shared in shared_with %}
 					<div class="card" style="height: 10rem;width: 18rem;">
-						{% if shared.editor %}
-                        <a href="{% url 'shared_update_note' shared.note.pk %}" class="btn d-flex flex-column " style="row-gap: 8%;">
-						{% else %}
-                        <a href="{% url 'note_view' shared.note.pk %}" class="btn d-flex flex-column " style="row-gap: 8%;">
-                        {% endif %}
+                        <a href="note/{{ shared.note.pk }}/update" class="btn d-flex flex-column " style="row-gap: 8%;">
                             <i class="fa fa-file fa-2x  h-50">
 
                             </i>
@@ -181,7 +182,7 @@
                         <div class="dropdown" style="align-self: center;">
                             <button class="dropbtn">•••</button>
                             <div class="dropdown-content">
-						        <a href="{% url 'shared_update_note' shared.note.pk %}" class="btn btn-primary">Update</a>
+						        <a href="{% url 'update_note' shared.note.pk %}" class="btn btn-primary">Update</a>
                             </div>
                         </div>
                          {% else %}
