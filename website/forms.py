@@ -30,7 +30,6 @@ class SharedNoteModelForm(forms.ModelForm):
     class Meta: 
         model = Note
         fields = [
-            'file_name',
             'text',
         ]
 

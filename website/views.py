@@ -1,5 +1,6 @@
 from ast import For
 from urllib import request
+from attr import fields
 from django.shortcuts import render
 from django.views import generic
 from django.views.generic import (
@@ -103,6 +104,7 @@ class SharedNoteUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'update_note.html'
     form_class = SharedNoteModelForm
     queryset = Note.objects.all()
+    # fields = ("text",)
     model = Note
     success_url = reverse_lazy('home')
     context_object_name = 'notes'
