@@ -21,6 +21,7 @@ class LoginTestCase(StaticLiveServerTestCase):
         cls.selenium.quit()
         super().tearDownClass()
 
+    #Test Login with valid credentials
     def test_login_success(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/accounts/login'))
         username_input = self.selenium.find_element_by_name("username")
@@ -34,4 +35,4 @@ class LoginTestCase(StaticLiveServerTestCase):
         expectedUrl = 'home'
         actualUrl = self.selenium.current_url.split("/", 3)[-1]
 
-        self.assertEquals(expectedUrl , str(actualUrl))
+        self.assertEquals(expectedUrl , str(actualUrl), "Login should be successful")

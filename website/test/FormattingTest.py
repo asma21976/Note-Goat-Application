@@ -25,7 +25,8 @@ class FormattingTestCase(StaticLiveServerTestCase):
     def tearDownClass(cls):
         cls.selenium.quit()
         super().tearDownClass()
-
+    
+    #Test if bolding function works if clicked before writing text
     def test_bold_before_writing(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/home'))
         login(self)
@@ -48,6 +49,7 @@ class FormattingTestCase(StaticLiveServerTestCase):
 
         self.selenium.switch_to.default_content()
 
+    #Test if bolding function works if clicked after writing text
     def test_bold_after_writing(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/home'))
         login(self)
@@ -75,7 +77,7 @@ class FormattingTestCase(StaticLiveServerTestCase):
 
         self.selenium.switch_to.default_content()
 
-
+    #Test if italics function works if clicked before writing text
     def test_italics_before_writing(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/home'))
         login(self)
@@ -92,13 +94,13 @@ class FormattingTestCase(StaticLiveServerTestCase):
         self.selenium.implicitly_wait(2)
 
 
-        # Strong means bold, so if its found the test will pass, if not it will fail
+        # em means italics, so if its found the test will pass, if not it will fail
         text = self.selenium.find_element_by_xpath('/html/body/p/span/em')
 
 
         self.selenium.switch_to.default_content()
 
-
+    #Test if italics function works if clicked after writing text
     def test_italics_after_writing(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/home'))
         login(self)
@@ -121,7 +123,7 @@ class FormattingTestCase(StaticLiveServerTestCase):
         self.selenium.switch_to.frame(self.selenium.find_element_by_id("id_text_ifr"))
 
 
-        # Strong means bold, so if its found the test will pass, if not it will fail
+        # em means italics, so if its found the test will pass, if not it will fail
         text = self.selenium.find_element_by_xpath('/html/body/p/em')
 
         self.selenium.switch_to.default_content()      

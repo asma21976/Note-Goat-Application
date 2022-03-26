@@ -19,6 +19,7 @@ class SecurityTestCase(StaticLiveServerTestCase):
         cls.selenium.quit()
         super().tearDownClass()
 
+    #Tests to make sure account can be created with valid usernam and password
     def test_create_account_secure_password(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/accounts/signup'))
         email_input = self.selenium.find_element_by_name("email")
@@ -39,8 +40,9 @@ class SecurityTestCase(StaticLiveServerTestCase):
         expectedUrl = 'accounts/login/'
         actualUrl = self.selenium.current_url.split("/", 3)[-1]
         
-        self.assertEquals(expectedUrl , str(actualUrl))
+        self.assertEquals(expectedUrl , str(actualUrl), "Log in should be successful")
 
+    #Tests to make account requires a password
     def test_create_account_no_password(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/accounts/signup'))
         email_input = self.selenium.find_element_by_name("email")
@@ -61,9 +63,9 @@ class SecurityTestCase(StaticLiveServerTestCase):
         expectedUrl = 'accounts/signup/'
         actualUrl = self.selenium.current_url.split("/", 3)[-1]
         
-        self.assertEquals(expectedUrl , str(actualUrl))
+        self.assertEquals(expectedUrl , str(actualUrl), "Log in should not be successful")
 
-
+    #Tests to make sure too short passwords cannot be used
     def test_create_account_insecure_password_too_short(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/accounts/signup'))
         email_input = self.selenium.find_element_by_name("email")
@@ -84,8 +86,9 @@ class SecurityTestCase(StaticLiveServerTestCase):
         expectedUrl = 'accounts/signup/'
         actualUrl = self.selenium.current_url.split("/", 3)[-1]
         
-        self.assertEquals(expectedUrl , str(actualUrl))
+        self.assertEquals(expectedUrl , str(actualUrl), "Log in should not be successful")
 
+    #Tests to make sure password that is similare to name cannot be used
     def test_create_account_insecure_password_too_similar(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/accounts/signup'))
         email_input = self.selenium.find_element_by_name("email")
@@ -106,9 +109,9 @@ class SecurityTestCase(StaticLiveServerTestCase):
         expectedUrl = 'accounts/signup/'
         actualUrl = self.selenium.current_url.split("/", 3)[-1]
         
-        self.assertEquals(expectedUrl , str(actualUrl))
+        self.assertEquals(expectedUrl , str(actualUrl), "Log in should not be successful")
 
-
+    #Tests to make sure commonly used passwords cannot be used
     def test_create_account_insecure_password_commonly_used(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/accounts/signup'))
         email_input = self.selenium.find_element_by_name("email")
@@ -129,9 +132,9 @@ class SecurityTestCase(StaticLiveServerTestCase):
         expectedUrl = 'accounts/signup/'
         actualUrl = self.selenium.current_url.split("/", 3)[-1]
         
-        self.assertEquals(expectedUrl , str(actualUrl))
+        self.assertEquals(expectedUrl , str(actualUrl), "Log in should not be successful")
 
-
+    #Tests to make sure completely numieric passwords cannot be used
     def test_create_account_insecure_password_completely_numeric(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/accounts/signup'))
         email_input = self.selenium.find_element_by_name("email")
@@ -152,9 +155,10 @@ class SecurityTestCase(StaticLiveServerTestCase):
         expectedUrl = 'accounts/signup/'
         actualUrl = self.selenium.current_url.split("/", 3)[-1]
         
-        self.assertEquals(expectedUrl , str(actualUrl))
+        self.assertEquals(expectedUrl , str(actualUrl), "Log in should not be successful")
 
 
+    # Tests the password conformation feature
     def test_create_account_insecure_password_bad_confirmation(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/accounts/signup'))
         email_input = self.selenium.find_element_by_name("email")
@@ -175,4 +179,4 @@ class SecurityTestCase(StaticLiveServerTestCase):
         expectedUrl = 'accounts/signup/'
         actualUrl = self.selenium.current_url.split("/", 3)[-1]
         
-        self.assertEquals(expectedUrl , str(actualUrl))
+        self.assertEquals(expectedUrl , str(actualUrl), "Log in should not be successful")
