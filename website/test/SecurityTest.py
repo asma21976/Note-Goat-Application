@@ -3,7 +3,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.firefox.webdriver import WebDriver
 from django.test import override_settings
 
-
+#Requirement 18
 @override_settings(DEBUG=True)
 class SecurityTestCase(StaticLiveServerTestCase):
     @classmethod
