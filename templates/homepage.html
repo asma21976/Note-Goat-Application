@@ -167,17 +167,26 @@
                     {% csrf_token %}
                      {% for shared in shared_with %}
 					<div class="card" style="height: 10rem;width: 18rem;">
-                        <a href="note/{{ shared.note.pk }}/update" class="btn d-flex flex-column " style="row-gap: 8%;">
+                        {% if shared.editor %}
+                        <a href="note/{{ shared.note.pk }}/sharedupdate" class="btn d-flex flex-column " style="row-gap: 8%;">
                             <i class="fa fa-file fa-2x  h-50">
 
                             </i>
                                 <h4 class=" h-50">{{shared.note}}</h4>
                         </a>
+                        {% else %}
+                        <a href="{% url 'note_view' shared.note.pk %}" class="btn d-flex flex-column " style="row-gap: 8%;">
+                            <i class="fa fa-file fa-2x  h-50">
+
+                            </i>
+                                <h4 class=" h-50">{{shared.note}}</h4>
+                        </a>
+                        {% endif %}
                         {% if shared.editor %}
                         <div class="dropdown" style="align-self: center;">
                             <button class="dropbtn">•••</button>
                             <div class="dropdown-content">
-						        <a href="{% url 'update_note' shared.note.pk %}" class="btn btn-primary">Update</a>
+						        <a href="note/{{ shared.note.pk }}/sharedupdate" class="btn btn-primary">Update</a>
                             </div>
                         </div>
                          {% else %}
@@ -188,12 +197,6 @@
                             </div>
                          </div>
                          {% endif %}
-                        <script>
-                            $(" #{{ note.id }}").click(function(e) {
-                                e.preventDefault();
-                                window.location.href = "note/{{ note.id }}"
-                            })
-                        </script>
                     </div>
                     {% endfor %}
                 </form>
@@ -201,7 +204,13 @@
 
             </div>
             <script>
-                $("#shared-notes-view").hide()
+                if (!$("#shared-notes").get(0).checked) {
+                    $("#shared-notes-view").hide()
+                }
+
+                if (!$("#my-notes").get(0).checked) {
+                    $("#notes").hide()
+                }
             </script>
         </div>
     </div>
