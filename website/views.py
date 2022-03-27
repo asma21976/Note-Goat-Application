@@ -1,6 +1,5 @@
 from ast import For
 from urllib import request
-from attr import fields
 from django.shortcuts import render
 from django.views import generic
 from django.views.generic import (
