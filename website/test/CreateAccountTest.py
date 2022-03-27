@@ -41,4 +41,4 @@ class CreateAccountTestCase(StaticLiveServerTestCase):
         expectedUrl = 'accounts/login/'
         actualUrl = self.selenium.current_url.split("/", 3)[-1]
         
-        self.assertEquals(expectedUrl , str(actualUrl))
+        self.assertEquals(expectedUrl , str(actualUrl), 'Account creatinng should be successful')

@@ -54,9 +54,23 @@ class SharedNotesTestCase(StaticLiveServerTestCase):
 
         self.selenium.switch_to.frame(self.selenium.find_element_by_id("id_text_ifr"))
 
-        text = self.selenium.find_element_by_id("/html/body/p").get_attribute("innerHTML")
+        text = self.selenium.find_element_by_id("tinymce").get_attribute("innerHTML")
 
-        self.assertEquals("this is a test", text, "Text should have been changed from `test` to `this is a test`")
+        
+
+        self.assertEquals("<p>this is a test<p>", str(text), "Text should have been changed from `test` to `this is a test`")
+
+
+
+    # Test the view feature on a shared note
+    def test_view_shared_note(self):
+        self.selenium.get('%s%s' % (self.live_server_url, '/note/6d566040-3562-4cb1-92b5-909cddf2d130/view/'))
+        login(self)
+        self.selenium.implicitly_wait(10)
+
+        text = self.selenium.find_element_by_xpath('/html/body/div/div/div/p').text
+
+        self.assertEquals("test reee", text, "Text should read `test reee`")
 
         
 

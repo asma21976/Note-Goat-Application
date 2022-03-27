@@ -24,6 +24,7 @@ class FilterSharedNotesTestCase(StaticLiveServerTestCase):
         cls.selenium.quit()
         super().tearDownClass()
 
+    # Tests if user can make the shared notes element not visible
     def test_filter_shared_notes_hidden(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/home'))
         login(self)
@@ -34,7 +35,7 @@ class FilterSharedNotesTestCase(StaticLiveServerTestCase):
         self.assertFalse(self.selenium.find_element_by_xpath('//*[@id="shared-notes-view"]').is_displayed(), "The element that displays the shared notes should not be displayed")
 
 
-
+    # Tests if user can make the shared notes element visible
     def test_filter_shared_notes_visible(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/home'))
         login(self)
