@@ -4,5 +4,4 @@ from .views import SignupPageView
 
 urlpatterns = [
     path('signup/', SignupPageView.as_view(), name='signup'),
-    #path('admin/', admin.site.urls),
 ]

@@ -9,6 +9,16 @@ from tinymce.models import HTMLField
 import uuid
 import datetime
 
+'''
+This models.py file and accounts/models.py represent the database.
+The models are the entities in the database
+'''
+
+'''
+The folder model has a uuid primary key, a folder_name, and a creator.
+The folder_name is a string.
+The creator is the CustomUser who made the note
+'''
 class Folder(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, )
     folder_name = models.CharField(max_length=50, default="New Folder",)
@@ -17,7 +27,13 @@ class Folder(models.Model):
     def __str__(self):
         return self.folder_name
 
-
+'''
+The note entity has a uuid primary key, id.
+The file_name is the name of the note and the text is the text contained in the note.
+The folder is the folder model that the note is inside.
+The field, sharing represents the many to many relationship between notes and users
+as a note can be shared with many users and a user can have many notes shared with them.
+'''
 class Note(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False,)
@@ -35,6 +51,12 @@ class Note(models.Model):
         return self.file_name
 
 
+'''
+The purpose of this model is for the many to many relationship between notes and users for sharing
+notes with users.
+Each SharedWith model has a note and the person (user) that the note is shared with.
+The editor field is True if the person is allowed to edit the note. If false the user can only view the note shared with them
+'''
 class SharedWith(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
