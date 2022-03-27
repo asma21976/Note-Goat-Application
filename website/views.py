@@ -1,6 +1,5 @@
 from ast import For
 from urllib import request
-from attr import fields
 from django.shortcuts import render
 from django.views import generic
 from django.views.generic import (
@@ -21,10 +20,15 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 import datetime
 
+'''
+This view is for the welcome page
+'''
 class WelcomeView(TemplateView):
     template_name = 'welcome.html'
 
-
+'''
+This view is for the homepage
+'''
 class HomePageView(LoginRequiredMixin, View):
     def get_queryset(self):
         queryset = Folder.objects.filter(creator=self.request.user)
@@ -61,6 +65,10 @@ class HomePageView(LoginRequiredMixin, View):
         print(kwargs)
         return self.get(request, request.POST['id'], **kwargs)
 
+
+'''
+This view is for a user to create a note
+'''
 class CreateNoteView(LoginRequiredMixin, CreateView):
     def get_queryset(self):
         queryset = Note.objects.filter(creator=self.request.user)
@@ -84,6 +92,10 @@ class CreateNoteView(LoginRequiredMixin, CreateView):
         form.instance.creator = self.request.user
         return super().form_valid(form)
 
+
+'''
+This view is for a user to update a note that belongs to them
+'''
 class NoteUpdateView(LoginRequiredMixin, UpdateView):
     def get_form_kwargs(self):
         """ Passes the request object to the form class.
@@ -100,6 +112,10 @@ class NoteUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('home')
     context_object_name = 'notes'
 
+
+'''
+This view is for a user to update a note that is shared with them
+'''
 class SharedNoteUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'update_note.html'
     form_class = SharedNoteModelForm
@@ -109,6 +125,9 @@ class SharedNoteUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('home')
     context_object_name = 'notes'
 
+'''
+This view is for a user to delete one of their notes
+'''
 class NoteDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'delete_note.html'
     model = Note
@@ -116,6 +135,10 @@ class NoteDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('home')
     context_object_name = 'notes'
 
+
+'''
+This view is for a user to create a folder
+'''
 class CreateFolderView(LoginRequiredMixin, CreateView):
     template_name = 'create_folder.html'
     model = Folder
@@ -126,7 +149,9 @@ class CreateFolderView(LoginRequiredMixin, CreateView):
         form.instance.creator = self.request.user
         return super().form_valid(form) 
 
-
+'''
+This view is for a user to update the name of the folder
+'''
 class UpdateFolderView(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         form.instance.creator = self.request.user
@@ -139,6 +164,9 @@ class UpdateFolderView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('home')
     context_object_name = 'folder'
 
+'''
+This view is for a user to delete one of their folders
+'''
 class FolderDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'delete_folder.html'
     model = Folder
@@ -146,6 +174,10 @@ class FolderDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('home')
     context_object_name = 'folder'
 
+
+'''
+This view is for a user to share a note with another user
+'''
 class CreateSharedWithView(LoginRequiredMixin, CreateView):
     def get_form_kwargs(self):
         """ Passes the request object to the form class.
@@ -163,6 +195,9 @@ class CreateSharedWithView(LoginRequiredMixin, CreateView):
     context_object_name = 'shared_with'
     success_url = reverse_lazy('home')
 
+'''
+This view is for a user to update whether or not a user that their note is shared with is an editor or not
+'''
 class SharedWithUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'shared_with/update.html'
     model = SharedWith
@@ -170,6 +205,10 @@ class SharedWithUpdateView(LoginRequiredMixin, UpdateView):
     context_object_name = 'shared_with'
     success_url = reverse_lazy('home')
 
+
+'''
+This view is for a user to un-share a note with someone
+'''
 class SharedWithDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'shared_with/delete.html'
     model = SharedWith
@@ -177,6 +216,9 @@ class SharedWithDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('home')
 
 
+'''
+This view is for a user to view all the users a note of theirs is shared with
+'''
 class ListSharedWithView(LoginRequiredMixin, DetailView):
     template_name = 'shared_with/list.html'
     model = Note
@@ -188,6 +230,9 @@ class ListSharedWithView(LoginRequiredMixin, DetailView):
         return ctx
 
 
+'''
+This view is for a user to view a note that is shared with them without being able to edit it
+'''
 class NoteView(LoginRequiredMixin, DetailView):
     template_name = 'view_shared_note.html'
     model = Note
