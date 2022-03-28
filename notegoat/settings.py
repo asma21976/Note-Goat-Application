@@ -145,5 +145,5 @@ USE_TZ = True
 #for static files (notegoat image)
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (str(BASE_DIR.joinpath('static')),)
-STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
