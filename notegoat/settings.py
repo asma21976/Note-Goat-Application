@@ -97,14 +97,15 @@ WSGI_APPLICATION = 'notegoat.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd7hh4fej3moefb',
-        'HOST': 'ec2-18-215-96-22.compute-1.amazonaws.com',
+        'NAME': 'd6qum10ukuv1hs',
+        'HOST': 'ec2-54-173-77-184.compute-1.amazonaws.com',
         'PORT': 5432,
-        'USER': 'ojicduufuzayyv',
-        'PASSWORD': '3f64fa99b45318223383e62712c9c27484015d2bcfde8f38e1d12d63fc783910'
+        'USER': 'jrmdehyztqdzex',
+        'PASSWORD': '75dbfd25f7d7f46170a79514d2ac1869c7a20d406fefe39bb5ebdff78a210a60'
 
     }
 }
+
 
 
 # Password validation
