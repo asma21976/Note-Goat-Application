@@ -16,4 +16,13 @@ def login2(self):
     password_input.send_keys("tXzAN=u4.F;4][Y3")
 
     self.selenium.find_element_by_xpath('/html/body/div/form/button').click()
+
+def login3(self):
+    username_input = self.selenium.find_element_by_name("username")
+    password_input = self.selenium.find_element_by_name("password")
+
+    username_input.send_keys("tester")
+    password_input.send_keys("requirement3")
+
+    self.selenium.find_element_by_xpath('/html/body/div/form/button').click()
     
