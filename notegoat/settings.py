@@ -96,12 +96,15 @@ WSGI_APPLICATION = 'notegoat.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd7hh4fej3moefb',
+        'HOST': 'ec2-18-215-96-22.compute-1.amazonaws.com',
+        'PORT': 5432,
+        'USER': 'ojicduufuzayyv',
+        'PASSWORD': '3f64fa99b45318223383e62712c9c27484015d2bcfde8f38e1d12d63fc783910'
+
     }
 }
-
-
 
 
 # Password validation
