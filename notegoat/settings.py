@@ -25,7 +25,7 @@ SECRET_KEY = 'yl14=g__3ta!c=5o)+z8zkjo-&id!75-j!cbnpf=na&-6i5)sx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'frozen-brook-25968.herokuapp.com', 'note-goat-site.herokuapp.com/']
+ALLOWED_HOSTS = ['127.0.0.1', 'frozen-brook-25968.herokuapp.com', 'note-goat-site.herokuapp.com']
 
 
 # Application definition
