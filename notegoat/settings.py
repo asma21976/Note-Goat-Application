@@ -25,7 +25,7 @@ SECRET_KEY = 'yl14=g__3ta!c=5o)+z8zkjo-&id!75-j!cbnpf=na&-6i5)sx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'frozen-brook-25968.herokuapp.com', 'note-goat-site.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'frozen-brook-25968.herokuapp.com']
 
 
 # Application definition
@@ -96,16 +96,10 @@ WSGI_APPLICATION = 'notegoat.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd6qum10ukuv1hs',
-        'HOST': 'ec2-54-173-77-184.compute-1.amazonaws.com',
-        'PORT': 5432,
-        'USER': 'jrmdehyztqdzex',
-        'PASSWORD': '75dbfd25f7d7f46170a79514d2ac1869c7a20d406fefe39bb5ebdff78a210a60'
-
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 
 # Password validation
@@ -146,5 +140,5 @@ USE_TZ = True
 #for static files (notegoat image)
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (str(BASE_DIR.joinpath('static')),)
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
