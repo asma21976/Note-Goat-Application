@@ -20,7 +20,7 @@ to run the site locally, simply follow the following instructions:
 We assume that you have Python 3 installed on your machine.
 
 To run this program, start by setting up a python virtual 
-environment in the folder where Note-Goat-Application-Frontend-
+environment in the folder where Note-Goat-Application
 resides. This can be done by running 
 ```
 python3 -m venv CPSC471Project
@@ -36,7 +36,7 @@ on Windows. You may need to run `.\scripts\activate` twice;
 you will know it worked when your command prompt starts with
 parentheses, like this:
 ```
-(Note-Goat-Application-Frontend-) username@computer seng401 %
+(Note-Goat-Application) username@computer seng401 %
 ```
 
 Next, we have to install Django, using 
