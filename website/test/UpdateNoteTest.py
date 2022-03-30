@@ -13,7 +13,7 @@ from time import sleep
 
 #Requirement 4
 @override_settings(DEBUG=True)
-class UpdateFolderTestCase(StaticLiveServerTestCase):
+class UpdateNoteTestCase(StaticLiveServerTestCase):
     fixtures = ['user-data-note-update.json']
 
     @classmethod

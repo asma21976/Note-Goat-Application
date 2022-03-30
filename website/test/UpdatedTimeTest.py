@@ -51,12 +51,12 @@ class UpdatedTimeTestCase(StaticLiveServerTestCase):
         sleep(1)
         update_button.click()
         now = datetime.now()
-        updated_time = now.strftime("%B %d, %Y, %-I:%M")
-        print(updated_time)
 
         self.selenium.find_element_by_xpath('//button[@id="fc1fb5d4-a214-4590-9ab7-22edcc888a1d"]/h4').click()
         sleep(1)
         self.selenium.find_element_by_xpath('//div[@id="notes"]/form/div/a').click()
 
 
-        self.assertTrue(updated_time in self.selenium.page_source)
+        text = self.selenium.find_element_by_xpath('/html/body/div[1]/form/p[1]').text
+
+        self.assertTrue(str(now.day) in text, "Day should be the same")

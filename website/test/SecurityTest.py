@@ -159,7 +159,7 @@ class SecurityTestCase(StaticLiveServerTestCase):
 
 
     # Tests the password conformation feature
-    def test_create_account_insecure_password_bad_confirmation(self):
+    def test_create_account_bad_confirmation(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/accounts/signup'))
         email_input = self.selenium.find_element_by_name("email")
         username_input = self.selenium.find_element_by_name("username")

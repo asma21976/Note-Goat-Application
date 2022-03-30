@@ -58,7 +58,7 @@ class SharedNotesTestCase(StaticLiveServerTestCase):
 
         
 
-        self.assertEquals("<p>this is a test<p>", str(text), "Text should have been changed from `test` to `this is a test`")
+        self.assertEquals("<p>this is a test</p>", str(text), "Text should have been changed from `test` to `this is a test`")
 
 
 

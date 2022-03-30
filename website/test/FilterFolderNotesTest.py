@@ -28,10 +28,10 @@ class FilterFolderNotesTestCase(StaticLiveServerTestCase):
     def test_filter_folder_notes_hidden(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/home'))
         login(self)
-        if (self.selenium.find_element_by_xpath('//*[@id="my-notes"]').get_attribute('checked') == 'checked'):
+        if (self.selenium.find_element_by_xpath('//*[@id="my-notes"]').get_attribute('checked') != 'checked'):
+            print("reeee\n\n\n\n")
             self.selenium.find_element_by_xpath('//*[@id="my-notes"]').click()
         
-
         self.assertFalse(self.selenium.find_element_by_xpath('//*[@id="notes"]').is_displayed(), "The element that displays the notes should not be displayed")
 
 
@@ -39,10 +39,9 @@ class FilterFolderNotesTestCase(StaticLiveServerTestCase):
     def test_filter_folder_notes_visible(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/home'))
         login(self)
-        if (self.selenium.find_element_by_xpath('//*[@id="my-notes"]').get_attribute('checked') != 'checked'):
+        if (self.selenium.find_element_by_xpath('//*[@id="my-notes"]').get_attribute('checked') == 'checked'):
             self.selenium.find_element_by_xpath('//*[@id="my-notes"]').click()
         
-
         self.assertTrue(self.selenium.find_element_by_xpath('//*[@id="notes"]').is_displayed(), "The element that displays the notes should be displayed")
 
 

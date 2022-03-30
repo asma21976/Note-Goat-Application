@@ -13,7 +13,7 @@ from time import sleep
 
 #Requirement 5
 @override_settings(DEBUG=True)
-class DeleteFolderTestCase(StaticLiveServerTestCase):
+class DeleteNoteTestCase(StaticLiveServerTestCase):
     fixtures = ['user-data-note-delete.json']
 
     @classmethod
