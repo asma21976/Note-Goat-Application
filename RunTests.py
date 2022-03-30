@@ -310,6 +310,36 @@ def run_update_note_test():
     print_out(4, round(t1-t0, 3))
 
 
+def run_response_time_test():
+    t0 = time.time()
+
+    p = subprocess.Popen(['python3', 'manage.py', 'test', 'website.test.ResponseTimeTest.ResponseTimeTestCase.test_response_time_home'], cwd=cd)
+    p.wait()
+    p.kill()
+
+    p = subprocess.Popen(['python3', 'manage.py', 'test', 'website.test.ResponseTimeTest.ResponseTimeTestCase.test_response_time_create_account'], cwd=cd)
+    p.wait()
+    p.kill()
+
+    p = subprocess.Popen(['python3', 'manage.py', 'test', 'website.test.ResponseTimeTest.ResponseTimeTestCase.test_response_time_login'], cwd=cd)
+    p.wait()
+    p.kill()
+
+    p = subprocess.Popen(['python3', 'manage.py', 'test', 'website.test.ResponseTimeTest.ResponseTimeTestCase.test_response_time_notes'], cwd=cd)
+    p.wait()
+    p.kill()
+
+    p = subprocess.Popen(['python3', 'manage.py', 'test', 'website.test.ResponseTimeTest.ResponseTimeTestCase.test_response_time_folders'], cwd=cd)
+    p.wait()
+    p.kill()
+
+
+    t1 = time.time()
+
+    print_out(5, round(t1-t0, 3))
+
+
+
 def print_out(tests, time):
     print("----------------------------------------------------------------------")
     print("Ran " + str(tests) + " test in " + str(time) + "s")
@@ -317,19 +347,20 @@ def print_out(tests, time):
     print("OK")
 
 
-run_create_folder_test()
-run_login_test()
-run_create_note_test()
-run_update_note_test()
-run_delete_note_test()
-run_updated_time_test()
-run_create_folder_test()
-run_update_folder_test()
-run_delete_folder_test()
-run_store_notes_in_folder_test()
-run_share_notes_test()
-run_shared_notes_test()
-run_filter_folder_notes_test()
-run_filter_shared_notes_test()
-run_formatting_test()
-run_security_test()
+# run_create_folder_test()
+# run_login_test()
+# run_create_note_test()
+# run_update_note_test()
+# run_delete_note_test()
+# run_updated_time_test()
+# run_create_folder_test()
+# run_update_folder_test()
+# run_delete_folder_test()
+# run_store_notes_in_folder_test()
+# run_share_notes_test()
+# run_shared_notes_test()
+# run_filter_folder_notes_test()
+# run_filter_shared_notes_test()
+# run_formatting_test()
+# run_security_test()
+run_response_time_test()
