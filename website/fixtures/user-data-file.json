@@ -1,0 +1,37 @@
+[
+    {
+        "model": "sessions.session",
+        "pk": "rxa0faef5bw4hjp8meob4g63s5dewpyw",
+        "fields": {
+            "session_data": ".eJxVjksOwjAMRO-SNYlSGjcxS_acobIdhxZQK_WzQtydVuoC1vPezLxNS-vSteusU9tnczGaKAIR21BqsYGgWGRgW5iRRVEQ1Zx-NSZ56rC7-UHDfXQyDsvUs9sRd6Szu41ZX9eD_SvoaO42O50B4z6ITToLRPQxgGKFBSVWUDeEnlIibojFhxgkZAX12yHl6LP5fAGvn0IM:1nYi7n:OC6o4rE574ZsCyRmxpeAr1SJMmSvEELBsZpspYZGfws",
+            "expire_date": "2022-04-11T05:41:07.928Z"
+        }
+    },
+    {
+        "model": "accounts.customuser",
+        "fields": {
+            "password": "pbkdf2_sha256$320000$MrgraNUPUz4ckajGCkJkUq$Cxe5iAcG0lmyOy7kAF3/XgcxO/IITx1ANfiYRPWgNt8=",
+            "last_login": "2022-03-28T05:41:07.926Z",
+            "is_superuser": false,
+            "username": "tester",
+            "first_name": "maram",
+            "last_name": "elsayed",
+            "email": "tester@note-goat.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-03-28T05:40:55.516Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "website.folder",
+        "pk": "92fcef68-bc6f-439a-a034-0035e3fbc46e",
+        "fields": {
+            "folder_name": "test_folder",
+            "creator": [
+                "tester"
+            ]
+        }
+    }
+    ]

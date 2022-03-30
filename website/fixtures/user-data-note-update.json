@@ -1,0 +1,111 @@
+[
+    {
+        "model": "sessions.session",
+        "pk": "e0q27jaajeuoz504j1y7rbn8fx7ebfel",
+        "fields": {
+            "session_data": ".eJxVzDkOwjAURdG9uCZWPH6bkp41RH-wSQAlUoYKsXeIlALqd897qQ63te-2pczdIOqsIEiIwUHDEEvjUaChRG0jSM5bkxNDUKdfRsiPMu5W7jjeJs3TuM4D6T3Rx7ro6yTleTnav4Mel_6rsSWyQWo0lSjbYK0BtmhqTCAFkCr5kNnk4hzHlFhq4OptJAcutlG9P_NCQVE:1nYn4b:Dz_vmn1bc1b-NNwFhy4YePfTjwrQ2o2ELOoU9LbU3CM",
+            "expire_date": "2022-04-11T10:58:09.560Z"
+        }
+    },
+    {
+        "model": "accounts.customuser",
+        "fields": {
+            "password": "pbkdf2_sha256$320000$jgsk814ri4AkNdOOU5ptBM$NZ7nwemwQsuOtWE9ZWSabYedmfzzS2GpU/qX4HJkb2s=",
+            "last_login": "2022-03-28T10:57:00.719Z",
+            "is_superuser": false,
+            "username": "tester2",
+            "first_name": "note",
+            "last_name": "goat",
+            "email": "tester2@note-goat.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-03-28T10:56:48.960Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.customuser",
+        "fields": {
+            "password": "pbkdf2_sha256$320000$DJljXOQhTubQ2GpOJZ2ewl$gARWOAJlIIDuqow/+mE6uPi86bjL+ojhYyAh2n9TkxA=",
+            "last_login": "2022-03-28T10:58:09.558Z",
+            "is_superuser": false,
+            "username": "tester",
+            "first_name": "maram",
+            "last_name": "elsayed",
+            "email": "tester@note-goat.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-03-28T10:55:38.245Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "website.sharedwith",
+        "pk": "4983739e-7d15-4803-accc-e1032439cd9b",
+        "fields": {
+            "person": [
+                "tester"
+            ],
+            "note": "e6880768-a7e8-4285-983b-6d133e8d5e31",
+            "editor": true
+        }
+    },
+    {
+        "model": "website.note",
+        "pk": "d2fa6d19-d966-4b1e-8961-14653ec84fb6",
+        "fields": {
+            "file_name": "test_edit",
+            "text": "<p>This is will be updated</p>",
+            "creator": [
+                "tester"
+            ],
+            "folder": "fc1fb5d4-a214-4590-9ab7-22edcc888a1d",
+            "updated": "2022-03-28T10:59:29.294Z"
+        }
+    },
+    {
+        "model": "website.note",
+        "pk": "e6880768-a7e8-4285-983b-6d133e8d5e31",
+        "fields": {
+            "file_name": "Shared_note",
+            "text": "<p>This will be shared</p>",
+            "creator": [
+                "tester2"
+            ],
+            "folder": "ea3552ef-60a2-4298-af3c-41b33f40e012",
+            "updated": "2022-03-28T10:57:32.075Z"
+        }
+    },
+    {
+        "model": "website.folder",
+        "pk": "ea3552ef-60a2-4298-af3c-41b33f40e012",
+        "fields": {
+            "folder_name": "sharing",
+            "creator": [
+                "tester2"
+            ]
+        }
+    },
+    {
+        "model": "website.folder",
+        "pk": "f93ee100-ba9a-4e86-b02f-1ca7fde87979",
+        "fields": {
+            "folder_name": "second_folder",
+            "creator": [
+                "tester"
+            ]
+        }
+    },
+    {
+        "model": "website.folder",
+        "pk": "fc1fb5d4-a214-4590-9ab7-22edcc888a1d",
+        "fields": {
+            "folder_name": "first_folder",
+            "creator": [
+                "tester"
+            ]
+        }
+    }
+    ]
