@@ -6,7 +6,7 @@ from django.test import override_settings
 
 @override_settings(DEBUG=True)
 class LoginTestCase(StaticLiveServerTestCase):
-    fixtures = ['user-data.json']
+    fixtures = ['user-data-file.json']
 
     @classmethod
     def setUpClass(cls):
@@ -15,7 +15,7 @@ class LoginTestCase(StaticLiveServerTestCase):
         cls.selenium = WebDriver(executable_path="D:/School/geckodriver.exe")
         cls.selenium.implicitly_wait(10)
 
-
+    # Requirement 2
     @classmethod
     def tearDownClass(cls):
         cls.selenium.quit()
@@ -27,8 +27,8 @@ class LoginTestCase(StaticLiveServerTestCase):
         username_input = self.selenium.find_element_by_name("username")
         password_input = self.selenium.find_element_by_name("password")
 
-        username_input.send_keys("test_user_correct")
-        password_input.send_keys("testPassword_123")
+        username_input.send_keys("tester")
+        password_input.send_keys("requirement3")
 
         self.selenium.find_element_by_xpath('/html/body/div/form/button').click()
 
@@ -38,19 +38,34 @@ class LoginTestCase(StaticLiveServerTestCase):
         self.assertEquals(expectedUrl , str(actualUrl), "Login should be successful")
 
     #Test Login with invalid credentials
-    def test_login_fail(self):
-        self.selenium.get('%s%s' % (self.live_server_url, '/accounts/login'))
-        username_input = self.selenium.find_element_by_name("username")
-        password_input = self.selenium.find_element_by_name("password")
+    def test_login_invalid_creds(self):
+       self.selenium.get('%s%s' % (self.live_server_url, '/accounts/login'))
+       username_input = self.selenium.find_element_by_name("username")
+       password_input = self.selenium.find_element_by_name("password")
 
-        username_input.send_keys("test_user_correct")
-        password_input.send_keys("testPassword_1234")
+       username_input.send_keys("test_user_incorrect")
+       password_input.send_keys("notTestPassword_123")
 
-        self.selenium.find_element_by_xpath('/html/body/div/form/button').click()
+       self.selenium.find_element_by_xpath('/html/body/div/form/button').click()
 
-        expectedUrl = 'accounts/login/'
-        actualUrl = self.selenium.current_url.split("/", 3)[-1]
+       expectedUrl = 'accounts/login/'
+       actualUrl = self.selenium.current_url.split("/", 3)[-1]
 
-        self.assertEquals(expectedUrl , str(actualUrl), "Login should not be successful")
-
+       self.assertEquals(expectedUrl , str(actualUrl), "Login should not be successful")
     
+    #Test Login with null credentials
+    def test_login_null(self):
+       self.selenium.get('%s%s' % (self.live_server_url, '/accounts/login'))
+       username_input = self.selenium.find_element_by_name("username")
+       password_input = self.selenium.find_element_by_name("password")
+
+       username_input.clear()
+       password_input.clear()
+
+       self.selenium.find_element_by_xpath('/html/body/div/form/button').click()
+
+       expectedUrl = 'accounts/login/'
+       actualUrl = self.selenium.current_url.split("/", 3)[-1]
+
+       self.assertEquals(expectedUrl , str(actualUrl), "Login should not be successful with null data")
+

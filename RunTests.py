@@ -155,17 +155,21 @@ def run_formatting_test():
 def run_login_test():
     t0 = time.time()
 
+    p = subprocess.Popen(['python3', 'manage.py', 'test', 'website.test.LoginTest.LoginTestCase.test_login_invalid_creds'], cwd=cd)
+    p.wait()
+    p.kill()
+
     p = subprocess.Popen(['python3', 'manage.py', 'test', 'website.test.LoginTest.LoginTestCase.test_login_success'], cwd=cd)
     p.wait()
     p.kill()
 
-    p = subprocess.Popen(['python3', 'manage.py', 'test', 'website.test.LoginTest.LoginTestCase.test_login_fail'], cwd=cd)
+    p = subprocess.Popen(['python3', 'manage.py', 'test', 'website.test.LoginTest.LoginTestCase.test_login_null'], cwd=cd)
     p.wait()
     p.kill()
 
     t1 = time.time()
 
-    print_out(2, round(t1-t0, 3))
+    print_out(3, round(t1-t0, 3))
 
 def run_security_test():
     t0 = time.time()
@@ -314,7 +318,7 @@ def print_out(tests, time):
 
 
 # run_create_folder_test()
-# run_login_test()
+run_login_test()
 # run_create_note_test()
 # run_update_note_test()
 # run_delete_note_test()
@@ -328,4 +332,4 @@ def print_out(tests, time):
 # run_filter_folder_notes_test()
 # run_filter_shared_notes_test()
 # run_formatting_test()
-run_security_test()
+# run_security_test()
