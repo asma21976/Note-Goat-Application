@@ -1,1 +1,1 @@
-web: gunicorn notegoat.wsgi
+web: gunicorn config.wsgi --log-file -
