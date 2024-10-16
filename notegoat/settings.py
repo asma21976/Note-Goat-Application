@@ -25,7 +25,7 @@ SECRET_KEY = 'yl14=g__3ta!c=5o)+z8zkjo-&id!75-j!cbnpf=na&-6i5)sx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'frozen-brook-25968.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'guarded-oasis-06327.herokuapp.com', 'guarded-oasis-06327-2082e245b6f4.herokuapp.com']
 
 
 # Application definition
